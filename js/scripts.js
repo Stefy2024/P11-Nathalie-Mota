@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
-// Get the modal
+// recupere la modal
 var modal = document.getElementById('myModal');
 
-// Get the button that opens the modal
+// recupere l'id de "contact"
 var contact = document.getElementById("menu-item-46");
 
-// Get the <span> element that closes the modal
+// recupere l'élément span pour fermer (la croix)
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal
+// au click, on remplace display none par display block (ouvre le formulaire)
 contact.onclick = function() {
     modal.style.display = "block";
 }
 
-// When the user clicks on <span> (x), close the modal
+// au click sur la croix, on ferme (display=none)
 span.onclick = function() {
     modal.style.display = "none";
 }
 
-// When the user clicks anywhere outside of the modal, close it
+// au click hors du cadre du formulaire, on ferme (display=none)
 window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
