@@ -25,3 +25,22 @@ window.onclick = function(event) {
     }
 }
 });
+
+
+
+/*bouton charger plus*/
+jQuery(document).ready(function($) {
+    $('#load-more-btn').on('click', function() {
+        $.ajax({
+            url: ajaxurl, // Utiliser la variable globale ajaxurl de WordPress
+            type: 'POST',
+            data: {
+                action: 'load_more_photos',
+                offset: $('.photo_flex img').length
+            },
+            success: function(response) {
+                $('.photo_flex').append(response);
+            }
+        });
+    });
+});

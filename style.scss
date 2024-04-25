@@ -157,6 +157,89 @@ front_page
     transform: translate(-50%, -50%);
 }
 
+/*filtres*/
+.filters{
+margin: 5% 5% 0 5%;
+//margin-left: 5%;
+display: flex;
+justify-content: space-between;
+
+
+    .left-filters {
+        select{
+        padding: 10px; /* Ajustez la taille des cadres des filtres en modifiant le padding */
+        width:21rem;
+        margin: 5px 0px; /* Espacement entre les filtres */
+        border: 2px solid #e5e5e5; /* Bordure des cadres */
+        border-radius: 5px;
+        background-color: #fefefe;
+        text-transform: uppercase;
+        }
+    }
+    .right-filters{
+        select{
+        padding: 10px; /* Ajustez la taille des cadres des filtres en modifiant le padding */
+        width:21rem;
+        margin: 5px 0px; /* Espacement entre les filtres */
+        border: 2px solid #e5e5e5; /* Bordure des cadres */
+        border-radius: 5px;
+        background-color: #fefefe;
+        text-transform: uppercase;
+        }
+    }
+}
+
+/*grille photo*/
+.photo_flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2% 5%;
+
+
+    //display: grid;
+   // grid-template-columns: repeat(2, 1fr); /* Deux colonnes de largeur égale */
+   // grid-template-rows: repeat(4, 1fr); /* Quatre lignes de hauteur égale */
+   // gap: 10px; /* Espacement entre les éléments de la grille */
+   // img{
+     //   width:50%;
+      //  height: auto;
+      
+       // object-fit: cover;
+   // }
+  }
+
+  .photo_simple {
+    width: calc(50% - 10px); /* Moitié de la largeur de la page moins un espace entre les colonnes */
+    margin-bottom: 20px; /* Espacement entre les lignes */
+    overflow: hidden;
+    height: 500px;
+  
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+
+
+/*bouton charger plus*/
+.load-more{
+    display: flex;
+    justify-content: center;
+    button{
+        padding: 10px; /* Ajustez la taille des cadres des filtres en modifiant le padding */
+        width:21rem;
+        border: 2px solid #e5e5e5; /* Bordure des cadres */
+        border-radius: 0px;
+        background-color: #e5e5e5;
+        cursor: pointer;
+    
+    }
+
+}
+
+
 /*****************
 footer
 ********************/
@@ -194,3 +277,5 @@ footer
         font-size: 15px;
     }
 }
+
+

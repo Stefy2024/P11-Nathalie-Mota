@@ -8,100 +8,19 @@
  * @subpackage NathalieMota
  */
 
-get_header();
-?>
 
-<div id="primary" class="content-area">
-    <main id="main" class="site-main">
+        // Récupére les champs ACF pour chaque photo
+        $photo = get_field('photo_image'); // 'false, false' pour obtenir l'URL directement
+        $type = get_field('photo_type');
+        $date = get_field('photo_annee');
+        $titre = get_field('photo_titre');
 
-        <div class="filters">
-            <select id="category-filter">
-                <option value="">Catégories</option>
-                <?php
-
-                // Récupérer catégories ACF et les afficher dans la liste déroulante
-
-                $categories = get_terms('categorie'); 
-                foreach ($categories as $category) {
-                    echo '<option value="' . $category->slug . '">' . $category->name . '</option>';
-                }
-                ?>
-            </select>
-
-            <select id="format-filter">
-                <option value="">Formats</option>
-                <?php
-				
-                // Récupérer formats ACF et les afficher dans la liste déroulante
-
-                $formats = get_terms('format'); 
-                foreach ($formats as $format) {
-                    echo '<option value="' . $format->slug . '">' . $format->name . '</option>';
-                }
-                ?>
-            </select>
-
-            <select id="sort-filter">
-                <option value="date">Trier par date</option>
-                <option value="title">Trier par titre</option>
-               
-            </select>
-        </div>
-
-        <div class="photo-grid">
-            <?php
-            // Récupére photos ACF
-            $photos = get_posts(array(
-                'post_type' => 'photo',
-                'posts_per_page' => -1, // récupérer tous les posts
-                'orderby' => 'date', // trier par date par défaut
-                'order' => 'DESC', // ordre décroissant par défaut
-                'tax_query' => array(
-                    'relation' => 'AND', //pour que les filtres fonctionnent correctement
-                    array(
-                        'taxonomy' => 'categorie',
-                        'field' => 'slug',
-                        'terms' => $_GET['categorie'] ?? '', // appliquer le filtre de catégorie
-                    ),
-                    array(
-                        'taxonomy' => 'format',
-                        'field' => 'slug',
-                        'terms' => $_GET['format'] ?? '', // appliquer le filtre de format
-                    ),
-                ),
-            ));
-
-            if ($photos) {
-                foreach ($photos as $photo) {
-                    // Récupérer les informations de chaque photo
-                    $photo_image = get_field('photo_image', $photo->ID);
-                    $photo_title = get_field('photo_titre', $photo->ID);
-                    $photo_reference = get_field('photo_reference', $photo->ID);
-                    $photo_annee = get_field('photo_annee', $photo->ID);
-                    $photo_type = get_field('photo_type', $photo->ID);
-
-                    // Assurez-vous que l'image est récupérée avec succès
-                    if ($photo_image) {
-                        $photo_url = $photo_image['url'];
-                        $photo_alt = $photo_image['alt'];
-
-                        // Afficher chaque image avec son titre et son attribut alt
-                        echo '<div class="photo">';
-                        echo '<img src="' . $photo_url . '" alt="' . $photo_alt . '">';
-                        echo '<h3>' . $photo_title . '</h3>';
-                        // Afficher les autres champs de la photo si nécessaire
-                        echo '</div>';
-                    }
-                }
-            } else {
-                echo 'Aucune photo trouvée.';
-            }
-            ?>
-        </div>
-
-    </main><!-- #main -->
-</div><!-- #primary -->
-
-<?php
-get_footer();
+       
+        // Vérifie si l'image existe et affichez-la
+        if ($photo) {
+            echo '<div class="photo_simple">';
+            echo wp_get_attachment_image( $photo, 'medium' );
+            echo '</div>';
+        }
+    
 ?>
