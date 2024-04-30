@@ -10,6 +10,7 @@ Text Domain: nathaliemota
 */
 body {
   font-family: "Space Mono";
+  margin: 5%;
 }
 
 h1 {
@@ -208,6 +209,102 @@ front_page
 }
 
 /*****************
+photo-publi
+********************/
+/*1ere section*/
+.photo__container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  overflow: hidden;
+}
+.photo__container .flex-item {
+  width: 50%;
+}
+.photo__container .container__info {
+  align-self: flex-end;
+  margin-right: 2%;
+  border-bottom: 1px solid #000;
+}
+.photo__container .container__info h1 {
+  font-size: 66px;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-bottom: 2vh;
+}
+.photo__container .container__info .list_info {
+  padding: 0;
+}
+.photo__container .container__info .list_info li {
+  font-size: 14px;
+  text-transform: uppercase;
+  padding-bottom: 10px;
+  list-style: none;
+}
+.photo__container .container__photo img {
+  width: 100%;
+  height: auto;
+}
+
+/*2eme section*/
+.container_contact {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.container_contact .photo_contact #btn_single_photo {
+  margin-left: 200px;
+  width: 270px;
+  height: 50px;
+  font-size: 12px;
+  border-color: #D8D8D8;
+  border-radius: 5px;
+}
+.container_contact .photo_next_prev a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 25px;
+  margin-left: 30px;
+}
+.container_contact .photo_next_prev a:hover {
+  color: #aaa;
+}
+
+/*3eme section*/
+.other-photo {
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+.other-photo p {
+  font-family: "Space Mono";
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-bottom: 4%;
+}
+.other-photo .flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+.other-photo .flex-container a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(50% - 10px);
+  max-height: 500px;
+}
+.other-photo .flex-container a img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center center;
+     object-position: center center;
+}
+
+/*****************
 footer
 ********************/
 .menu-divider {
@@ -241,4 +338,67 @@ footer
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
+}
+
+/*****************************
+lightbox
+******************************/
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9);
+  z-index: 10;
+  overflow: auto;
+}
+.lightbox .fadeOut {
+  opacity: 0;
+  transition: 0.3s;
+}
+.lightbox .lightbox__next {
+  background: url(assets/images/arrownext.png) no-repeat;
+  width: 100px;
+  height: 20px;
+  top: 50%;
+  right: 2%;
+  margin-top: 14px;
+}
+.lightbox .lightbox__prev {
+  background: url(assets/images/arrowprev.png) no-repeat;
+  width: 100px;
+  height: 20px;
+  top: 50%;
+  left: 2%;
+  margin-top: 14px;
+}
+.lightbox .lightbox__prev:hover,
+.lightbox .lightbox__next:hover,
+.lightbox .lightbox__close:hover {
+  opacity: 1;
+}
+.lightbox .lightbox__close {
+  background: url(assets/images/crossclose.png) center center/22px no-repeat;
+  width: 50px;
+  height: 50px;
+  right: 2%;
+}
+.lightbox button {
+  opacity: 0.5;
+  z-index: 11;
+  cursor: pointer;
+  border: none;
+  position: fixed;
+}
+.lightbox .lightbox__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5% 10%;
+  min-height: 100vh;
+}
+.lightbox .lightbox__container img {
+  max-width: 100%;
+  height: auto;
 }/*# sourceMappingURL=style.css.map */

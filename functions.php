@@ -62,8 +62,32 @@ function get_next_eight_photos_from_acf($offset) {
 
     return $eight_next_photos;
 }
+// Fonction pour récupérer les valeurs des filtres
+// récupération de la valeur de la liste déroulante de catégorie
+function getcategory($val){
 
+}
 
+// récupération de la valeur de la liste déroulante de format
+function getformat($val){
+    // $args = array(
+    //     'post_type' => 'photo-publi', // type de contenu où sont stockées les photos
+    //     'posts_per_page' => 8, // Récupère tous les articles  de ce type
+    // );
+    
+    // $query = new WP_Query($args);
+    
+    // showpicture($query);
+}
+
+function showpicture($galerie){
+    if ( $galerie->have_posts() ) {
+        while ($galerie->have_posts()) : $galerie->the_post();
+                get_template_part('photo-galerie');
+            endwhile;
+            wp_reset_postdata();
+        }
+}
 ?>
 
 
