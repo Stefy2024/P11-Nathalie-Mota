@@ -233,13 +233,15 @@ photo-publi
   margin-bottom: 2vh;
 }
 .photo__container .container__info .list_info {
-  padding: 0;
+  padding: 5% 0;
 }
 .photo__container .container__info .list_info li {
   font-size: 14px;
   text-transform: uppercase;
   padding-bottom: 10px;
   list-style: none;
+  line-height: 30px;
+  letter-spacing: 2px;
 }
 .photo__container .container__photo img {
   width: 100%;
@@ -252,6 +254,7 @@ photo-publi
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 2% 0;
 }
 .container_contact .photo_contact #btn_single_photo {
   margin-left: 200px;

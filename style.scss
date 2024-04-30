@@ -238,6 +238,7 @@ photo-publi
     justify-content: center;
     //align-items: center;
     overflow: hidden;
+    
     .flex-item{
         width: 50%;
         
@@ -245,6 +246,7 @@ photo-publi
     .container__info{
         align-self: flex-end;
         margin-right: 2%;
+   
         
       
         border-bottom: 1px solid #000;
@@ -255,12 +257,15 @@ photo-publi
             margin-bottom: 2vh;
         }
         .list_info{
-             padding: 0;
+             padding:5% 0;
+             
             li{
                 font-size: 14px;
                 text-transform: uppercase;
                 padding-bottom: 10px;
                 list-style: none;
+                line-height: 30px;
+                letter-spacing: 2px;
             }
         }
     }
@@ -278,7 +283,7 @@ photo-publi
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-   
+    margin: 2% 0;
     .photo_contact{
             #btn_single_photo{
                 margin-left: 200px;
