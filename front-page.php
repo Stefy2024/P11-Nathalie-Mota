@@ -43,5 +43,6 @@ showpicture($query);
 
 
 <?php 
+get_template_part('template-parts/lightbox');
 get_footer(); 
 ?>

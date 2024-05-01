@@ -16,10 +16,16 @@
         $titre = get_field('photo_titre');
 
        
-        // Vérifie si l'image existe et affichez-la
+        // Vérifie si l'image existe et l'affiche
         if ($photo) {
+            // Obtenir l'URL de la publication correspondante
+            $post_url = get_permalink($post->ID);
+        
+            // Affiche l'image avec un lien vers la publication correspondante
             echo '<div class="photo_simple">';
-            echo wp_get_attachment_image( $photo, 'medium' );
+            echo '<a href="' . esc_url($post_url) . '">';
+            echo wp_get_attachment_image($photo, 'medium');
+            echo '</a>';
             echo '</div>';
         }
     

@@ -36,45 +36,45 @@ window.onclick = function(event) {
 
 
 /*lightbox*/
-class Lightbox{
-    static init(){
-const links = document.querySelectorAll('a[href$=".jpeg"], a[href$=".jpg"], a[href$=".png"] ')
-        .forEach(link => link.addEventListener('click', e=>
-        {
-            e.preventDefault()
-            new Lightbox(e.currentTarget.getAttribute('href'))
-        }))
-    }
-    /*url=url de l'image dans constructor()*/
-    constructor(url){
-        const element = this.buildDOM(url)
-        document.body.appendChild(element)
+class Lightbox {
+    constructor(url) {
+        this.element = this.buildDOM(url);
+        document.body.appendChild(this.element);
+        this.element.querySelector('.lightbox__close').addEventListener('click', this.close.bind(this));
     }
 
-/*ferme la lightbox*/
-close (e) {
-    e.preventDefault()
-    this.element.classList.add('fadeOut')
-    window.setTimeout(() => {
-        this.element.parentElement.removeChild(this.element)
-    }, 500)
-}
+    close(e) {
+        e.preventDefault();
+        this.element.classList.add('fadeOut');
+        window.setTimeout(() => {
+            this.element.remove();
+        }, 500);
+    }
+    
 
-    /* buildDOM va retourner un élément html*/
-    buildDOM(url){
-        const dom = document.createElement('div')
-        dom.classList.add('lightbox')
-        dom.innerHTML=~`<button class="lightbox__close"></button>
-        <button class="lightbox__next"></button>
-        <button class="lightbox__prev"></button>
-        <div class="lightbox__container">
-            <img src="wp-content/themes/NathalieMota/assets/images/nathalie-0.jpeg" alt="test"></div>`
-            dom.querySelector('.lightbox__close').addEventListener('click', this.close.bind(this))
-        return dom
+    buildDOM(url) {
+        const dom = document.createElement('div');
+        dom.classList.add('lightbox');
+        dom.innerHTML = `
+            <button class="lightbox__close"></button>
+            <button class="lightbox__next"></button>
+            <button class="lightbox__prev"></button>
+            <div class="lightbox__container">
+                <img src="${url}" alt="Image en pleine taille">
+            </div>
+        `;
     }
 }
 
-Lightbox.init()
+// Attachez un gestionnaire d'événements au clic sur chaque image miniature
+const links = document.querySelectorAll('a[href$=".jpeg"], a[href$=".jpg"], a[href$=".png"]');
+links.forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        new Lightbox(e.currentTarget.getAttribute('href'));
+    });
+});
+
 
 });
 

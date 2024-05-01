@@ -355,10 +355,10 @@ lightbox
   background-color: rgba(0, 0, 0, 0.9);
   z-index: 10;
   overflow: auto;
+  transition: opacity 0.3s;
 }
 .lightbox .fadeOut {
   opacity: 0;
-  transition: 0.3s;
 }
 .lightbox .lightbox__next {
   background: url(assets/images/arrownext.png) no-repeat;

@@ -1,0 +1,32 @@
+.menu-divider {
+  border: none;
+  border-top: 1px solid #000;
+}
+
+#navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+#navigation ul {
+  display: flex;
+  flex-direction: row;
+  text-transform: uppercase;
+}
+#navigation ul li {
+  list-style-type: none;
+  padding-right: 60px;
+}
+#navigation ul li a {
+  color: black;
+  text-decoration: none;
+}
+#navigation p {
+  text-transform: uppercase;
+}
+#navigation .footer_text {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+}/*# sourceMappingURL=footer.css.map */
