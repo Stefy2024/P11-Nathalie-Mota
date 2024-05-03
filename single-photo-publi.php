@@ -86,7 +86,7 @@ get_header();
 				<button id="btn_single_photo" type="button">Contact</button>
 			</p>
 			<?php 
-			get_template_part('template-parts/modal/contact');
+			
 			?>
 		</div>
 		<!-- pour afficher les posts précédents ou suivants -->
@@ -115,6 +115,7 @@ get_header();
 	<p>Vous aimerez aussi</p>
 <?php
 get_template_part('template-parts/photo-autre');
+get_template_part('template-parts/modal/contact');
 
 ?>
 			

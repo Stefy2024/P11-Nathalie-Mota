@@ -54,12 +54,43 @@
   margin-bottom: 20px; /* Espacement entre les lignes */
   overflow: hidden;
   height: 500px;
+  position: relative;
+  /*liens photos vers lightbox ou photo-publi*/
 }
 .photo_simple img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  z-index: 1;
+}
+.photo_simple a {
+  z-index: 4;
+}
+.photo_simple a.link_lightbox {
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  z-index: 5;
+}
+.photo_simple a.link_publi {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  z-index: 5;
+}
+.photo_simple a .img_lightbox, .photo_simple a .img_publi {
+  position: relative;
+  width: 30px;
+  height: auto;
+}
+.photo_simple a .img_publi {
+  top: 50%;
+  left: 50%;
+}
+.photo_simple a .img_lightbox {
+  top: 10%;
+  left: 90%;
 }
 
 /*bouton charger plus*/

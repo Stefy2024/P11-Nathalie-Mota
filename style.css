@@ -111,6 +111,17 @@ header
   width: 300px;
   height: 50px;
 }
+.modal .modal-content .mota-form-container input[type=submit] {
+  width: 290px;
+  height: 50px;
+  border-radius: 0;
+  border-color: #e5e5e5;
+  background-color: #e5e5e5;
+  cursor: pointer;
+}
+.modal .modal-content .mota-form-container input[type=submit]:hover {
+  opacity: 0.5;
+}
 
 /* bouton fermeture */
 .close {
@@ -186,12 +197,43 @@ front_page
   margin-bottom: 20px; /* Espacement entre les lignes */
   overflow: hidden;
   height: 500px;
+  position: relative;
+  /*liens photos vers lightbox ou photo-publi*/
 }
 .photo_simple img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  z-index: 1;
+}
+.photo_simple a {
+  z-index: 4;
+}
+.photo_simple a.link_lightbox {
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  z-index: 5;
+}
+.photo_simple a.link_publi {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  z-index: 5;
+}
+.photo_simple a .img_lightbox, .photo_simple a .img_publi {
+  position: relative;
+  width: 30px;
+  height: auto;
+}
+.photo_simple a .img_publi {
+  top: 50%;
+  left: 50%;
+}
+.photo_simple a .img_lightbox {
+  top: 10%;
+  left: 90%;
 }
 
 /*bouton charger plus*/
@@ -255,6 +297,7 @@ photo-publi
   justify-content: space-between;
   align-items: center;
   margin: 2% 0;
+  height: 118px;
 }
 .container_contact .photo_contact #btn_single_photo {
   margin-left: 200px;
@@ -353,12 +396,16 @@ lightbox
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.9);
-  z-index: 10;
+  z-index: -1;
   overflow: auto;
   transition: opacity 0.3s;
-}
-.lightbox .fadeOut {
   opacity: 0;
+  visibility: none;
+}
+.lightbox.fadeIn {
+  opacity: 1;
+  visibility: visible;
+  z-index: 99;
 }
 .lightbox .lightbox__next {
   background: url(assets/images/arrownext.png) no-repeat;
@@ -402,6 +449,9 @@ lightbox
   min-height: 100vh;
 }
 .lightbox .lightbox__container img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   max-width: 100%;
   height: auto;
 }/*# sourceMappingURL=style.css.map */
