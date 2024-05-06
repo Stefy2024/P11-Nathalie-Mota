@@ -25,15 +25,7 @@ get_template_part('template-parts/modal/contact');
 
 <div class="photo_flex">
 <?php
-
-$args = array(
-    'post_type' => 'photo-publi', // type de contenu où sont stockées les photos
-    'posts_per_page' => 8, // Récupère tous les articles  de ce type
-);
-
-$query = new WP_Query($args);
-
-showpicture($query);
+get_template_part('photo-galerie');
 ?>
 </div>
 

@@ -6,4 +6,6 @@
     <div class="lightbox__container">
         <img src="" alt="test" class="imgLightbox">
     </div>
+
+    
 </div> 

@@ -1,4 +1,6 @@
+
 <?php
+
 /**
  * The template for displaying all single posts
  *
@@ -7,6 +9,8 @@
  * @package WordPress
  * @subpackage NathalieMota
  */
+get_header();
+
 $reference = get_field('photo_reference');
 $categories = get_the_terms(get_the_ID(), 'categorie');
 $formats = get_the_terms(get_the_ID(), 'format');
@@ -15,7 +19,7 @@ $annee = get_field('photo_annee');
 $photo = get_field('photo_image');
 
 
-get_header();
+
 ?>
 	<article class="photo__container">
 		<div class="container__info flex-item">

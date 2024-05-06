@@ -32,8 +32,35 @@ function register_my_menu(){
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 
+// Fonction pour gérer la requête AJAX et renvoyer les photos filtrées
+add_action('wp_ajax_filter_photos', 'filter_photos');
+add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
+function filter_photos() {
+    $category = $_POST['category'];
+    
+    // Effectuez la même requête WP_Query que dans le code précédent pour récupérer les photos filtrées
+    
+    // Construisez le HTML des photos filtrées
+    ob_start();
+    if ($photos->have_posts()) {
+        while ($photos->have_posts()) {
+            $photos->the_post();
+            
+            // Récupérez les champs ACF pour chaque photo
+            
+            // Construisez le HTML pour chaque photo filtrée
+        }
+    } else {
+        // Aucune photo trouvée
+    }
+    $html = ob_get_clean();
+    
+    echo $html;
+    wp_die();
+}
 
-// Ajoutez la fonction pour gérer la requête AJAX
+
+// Ajoutez la fonction pour gérer la requête AJAX "charger plus"
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
 
@@ -62,32 +89,15 @@ function get_next_eight_photos_from_acf($offset) {
 
     return $eight_next_photos;
 }
-// Fonction pour récupérer les valeurs des filtres
-// récupération de la valeur de la liste déroulante de catégorie
-function getcategory($val){
 
-}
-
-// récupération de la valeur de la liste déroulante de format
-function getformat($val){
-    // $args = array(
-    //     'post_type' => 'photo-publi', // type de contenu où sont stockées les photos
-    //     'posts_per_page' => 8, // Récupère tous les articles  de ce type
-    // );
-    
-    // $query = new WP_Query($args);
-    
-    // showpicture($query);
-}
-
-function showpicture($galerie){
-    if ( $galerie->have_posts() ) {
-        while ($galerie->have_posts()) : $galerie->the_post();
-                get_template_part('photo-galerie');
-            endwhile;
-            wp_reset_postdata();
-        }
-}
+// function showpicture($galerie){
+//     if ( $galerie->have_posts() ) {
+//         while ($galerie->have_posts()) : $galerie->the_post();
+//                 get_template_part('photo-galerie');
+//             endwhile;
+//             wp_reset_postdata();
+//         }
+// }
 ?>
 
 

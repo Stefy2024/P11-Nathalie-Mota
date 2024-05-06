@@ -1,6 +1,6 @@
 <div class="filters">
     <div class="left-filters">
-            <select id="category-filter" onChange="getcategory(this.value);">
+            <select id="category-filter">
                 <option value="">Catégories</option>
                 <?php
 
@@ -8,12 +8,13 @@
 
                 $categories = get_terms('categorie'); 
                 foreach ($categories as $category) {
+                    var_dump ( $category->slug);
                     echo '<option value="' . $category->slug . '">' . $category->name . '</option>';
                 }
                 ?>
             </select>
 
-            <select id="format-filter" onChange="getformat(this.value);">
+            <select id="format-filter">
                 <option value="">Formats</option>
                 <?php
                 
@@ -28,8 +29,9 @@
     </div>
     <div class="right-filters">
             <select id="sort-filter">
-                <option value="date">Trier par date</option>
-                <option value="title">Trier par titre</option>
+                <option value="alldate">trier par</option>
+                <option value="lastdate">à partir des plus récentes</option>
+                <option value="firstdate">à partir des plus anciennes</option>
                 
             </select>
     </div>
