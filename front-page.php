@@ -25,7 +25,27 @@ get_template_part('template-parts/modal/contact');
 
 <div class="photo_flex">
 <?php
+$paramrequette= array(
+    'post_type' => 'photo-publi', // type de contenu où sont stockées les photos
+    'posts_per_page' => 8, // Récupère tous les articles  de ce type et en affiche 8
+);
+
+$photos = new WP_Query($paramrequette);
+
+// Affichez les photos récupérées
+if ($photos->have_posts()) {
+    
+    while ($photos->have_posts()) {
+        $photos->the_post();
+//var_dump($paramrequette["post_type"]);
 get_template_part('photo-galerie');
+}
+} else {
+    // Aucune photo trouvée
+}
+
+// Réinitialisez la requête WordPress
+wp_reset_postdata();
 ?>
 </div>
 

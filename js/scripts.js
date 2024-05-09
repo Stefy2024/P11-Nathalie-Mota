@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const lightboxPrev = document.querySelector('.lightbox__prev');
         const lightboxNext = document.querySelector('.lightbox__next');
         let currentImageIndex = 0;
+        let page=1;
 
         /*********************MODAL*******************/
     // recupere la modal
@@ -49,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
      selectCat.onchange = function () {
        valueCat = selectCat.value;
         console.log(valueCat); // Affichage de la valeur catégorie dans la console
+        page=1;
+        showfilter(false, page);
     }
 
     /*filtre format*/   
@@ -57,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
     selectForm.onchange = function () {
         valueForm = selectForm.value;
         console.log(valueForm); // Affichage de la valeur fomrat dans la console
+        page=1;
+        showfilter(false, page); 
     }
 
     /*filtre trier par*/   
@@ -64,9 +69,17 @@ document.addEventListener('DOMContentLoaded', function () {
     let valueTrier = '';
     selectTrier.onchange = function () {
         valueTrier = selectTrier.value;
-    console.log(valueTrier); // Affichage de la valeur trier dans la console
+        console.log(valueTrier); // Affichage de la valeur trier dans la console
+        page=1;
+        showfilter(false, page);   
     }
 
+    /*Bouton charger plus*/
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    loadMoreBtn.addEventListener('click', function () {
+        page++;
+        showfilter(true, page);
+    })
     /*affichage des photos en fonction des filtres*/
 
 
@@ -184,20 +197,43 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /*************bouton charger plus*****************/
 
-    jQuery(document).ready(function($) {
-        $('#load-more-btn').on('click', function() {
+    
+
+    (function($) {
+        'use strict';
+
+
+        window.showfilter = function showfilter(chargerPlus, page) {
+          
+            var categorieSelection = valueCat;
+            var formatSelection = valueForm;
+            var ordre = valueTrier;
+           // console.log('toto');
             $.ajax({
                 type: 'POST',
-                url: $("#ajaxurl").val(), // Utiliser la variable globale ajaxurl de WordPress
+                url: 'wp-admin/admin-ajax.php',
+                dataType: 'html',
                 data: {
-                    action: 'load_more_photos',
-                    offset: $('.photo_flex img').length
+                    action: 'filter',
+                    categorieSelection: categorieSelection,
+                    formatSelection: formatSelection,
+                    orderDirection: ordre,
+                    page: page,
                 },
-                success: function(response) {
-                    $('.photo_flex').append(response);
+                success: function(resultat) {
+                    //console.log(resultat);
+                    if (chargerPlus) {
+                        $('.photo_flex').append(resultat);
+                    } else {
+                        $('.photo_flex').html(resultat);
+                    }
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    //console.warn(resultat);
+                    console.log('Erreur Ajax: ' + textStatus);
                 }
             });
-        });
-    });
+            //console.log('totirtjyufnto');
+    }})(jQuery);
 
 });

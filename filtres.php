@@ -30,8 +30,8 @@
     <div class="right-filters">
             <select id="sort-filter">
                 <option value="alldate">trier par</option>
-                <option value="lastdate">à partir des plus récentes</option>
-                <option value="firstdate">à partir des plus anciennes</option>
+                <option value="DESC">à partir des plus récentes</option>
+                <option value="ASC">à partir des plus anciennes</option>
                 
             </select>
     </div>

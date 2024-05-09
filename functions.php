@@ -59,7 +59,6 @@ function filter_photos() {
     wp_die();
 }
 
-
 // Ajoutez la fonction pour gérer la requête AJAX "charger plus"
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
@@ -90,14 +89,123 @@ function get_next_eight_photos_from_acf($offset) {
     return $eight_next_photos;
 }
 
-// function showpicture($galerie){
-//     if ( $galerie->have_posts() ) {
-//         while ($galerie->have_posts()) : $galerie->the_post();
-//                 get_template_part('photo-galerie');
-//             endwhile;
-//             wp_reset_postdata();
+/*test pour filtres*/
+
+
+//function afficherTaxonomies($nomTaxonomie) {
+//     if($terms = get_terms(array(
+//         'taxonomy' => $nomTaxonomie,
+//         'orderby' => 'name'
+//     ))) {
+//         foreach ( $terms as $term ) {
+//             echo '<option class="js-filter-item" value="' . $term->slug . '">' . $term->name . '</option>';
 //         }
+//     }
 // }
+function filter() {
+
+   
+    if (empty(($_POST['categorieSelection'])) && empty($_POST['formatSelection']))
+    {
+        $taxonomie='';
+    }elseif(empty(($_POST['categorieSelection'])) || empty($_POST['formatSelection']))
+    {
+        $taxonomie=array(
+            'relation' => 'OR',
+               array(
+                    'taxonomy' => 'categorie',
+                    'field' => 'slug',
+                    'terms' => $_POST['categorieSelection'],
+               ),
+                array(
+                    'taxonomy' => 'format',
+                    'field' => 'slug',
+                   'terms' => $_POST['formatSelection'],
+                ),
+            );
+    }
+    else{
+        $taxonomie=array(
+            'relation' => 'AND',
+               array(
+                    'taxonomy' => 'categorie',
+                    'field' => 'slug',
+                    'terms' => $_POST['categorieSelection'],
+               ),
+                array(
+                    'taxonomy' => 'format',
+                    'field' => 'slug',
+                   'terms' => $_POST['formatSelection'],
+                ),
+            );
+    }
+    
+     $requeteAjax = new WP_Query(array(
+        'post_type' => 'photo-publi',
+         'orderby' => 'annee',
+         'order' => $_POST['orderDirection'],
+        'posts_per_page' => 8,
+         'paged' => $_POST['page'],
+         'tax_query' =>  $taxonomie
+         )
+     );
+   ob_start();
+   if($requeteAjax->have_posts()) {
+        while ($requeteAjax->have_posts()) { 
+            $requeteAjax->the_post();
+            $photo = get_field('photo_image'); // 'false, false' pour obtenir l'URL directement
+            $type = get_field('photo_type');
+            $date = get_field('photo_annee');
+            $titre = get_field('photo_titre');
+
+            // Vérifie si l'image existe et l'affiche
+            if ($photo) {
+                // Obtenir l'URL de la publication correspondante
+                $post_url = get_permalink($post->ID);
+            
+                // Affiche l'image avec un lien vers la publication correspondante (photo-publi ou lightbox)
+                echo '<div class="photo_simple">';
+                echo wp_get_attachment_image($photo, 'medium');
+                echo '<a href="#" class="link_lightbox">';
+                echo '<img class="img_lightbox" src="wp-content/themes/NathalieMota/assets/images/lien_lightbox.png" alt="lien lightbox">';
+                echo '</a>';
+                echo '<a href="' . esc_url($post_url) . '" class="link_publi">';
+                echo '<img class="img_publi" src="wp-content/themes/NathalieMota/assets/images/lien_publi.png" alt="lien publication">';
+                echo '</a>';
+                echo '</div>';
+            }
+        }
+    } else {
+            // Aucune photo trouvée
+    }
+    
+    // Réinitialisez la requête WordPress
+    wp_reset_postdata();
+   //afficherImages($requeteAjax, true);
+   $html_content = ob_get_clean();
+
+echo ($html_content );
+
+    // Terminer le script
+    die();
+}
+add_action('wp_ajax_nopriv_filter', 'filter');
+add_action('wp_ajax_filter', 'filter');
+
+// function afficherImages($galerie, $exit) {
+
+//     if($galerie->have_posts()) {
+//         while ($galerie->have_posts()) { 
+//         // <?php $galerie->the_post(); 
+//           //  <div class="colonne">
+//               //  <div class="rangee">
+//               /*      <img class="img-medium" src="<?php echo the_post_thumbnail_url(); 
+//                //     <div>
+//                //         <div class="img-hover" >
+//                //             <img class="btn-plein-ecran" src="<?php echo get_template_directory_uri(); 
+
+
+
+
+
 ?>
-
-
