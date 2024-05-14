@@ -9,7 +9,7 @@
                 $categories = get_terms('categorie'); 
                 foreach ($categories as $category) {
                     var_dump ( $category->slug);
-                    echo '<option value="' . $category->slug . '">' . $category->name . '</option>';
+                    echo '<option class="option-hoverable" value="' . $category->slug . '">' . $category->name . '</option>';
                 }
                 ?>
             </select>

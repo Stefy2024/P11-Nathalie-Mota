@@ -1,5 +1,6 @@
 <?php
 
+
 //ajout du fichier js
 add_action('wp_enqueue_scripts', 'enqueue_contact_Mota_scripts');
 function enqueue_contact_Mota_scripts() {
@@ -12,6 +13,36 @@ function theme_enqueue_styles() {
     wp_enqueue_style('NathalieMota', get_stylesheet_directory_uri() . '/style.css');
     
 }
+
+// ajout swiper
+function add_swiper_scripts() {
+    wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css' );
+    wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0.7', true);
+
+       // Ajouter le script JavaScript pour initialiser Swiper en ligne
+       $swiper_script = "
+       jQuery(document).ready(function($) {
+           var swiper = new Swiper('.swiper-container', {
+               autoplay: false,
+               slidesPerView: 1,
+               allowTouchMove: true,
+               navigation: {
+                   nextEl: '.swiper-button-next',
+                   prevEl: '.swiper-button-prev',
+               },
+               pagination: {
+                   el: '.swiper-pagination',
+                   type: 'bullets',
+                   clickable: true,
+               },
+           });
+       });
+   ";
+   wp_add_inline_script('swiper-js', $swiper_script);
+}
+add_action( 'wp_enqueue_scripts', 'add_swiper_scripts' );
+
+
 //défini ajaxurl
 add_action('wp_enqueue_scripts', 'theme_ajaxurl');
 function theme_ajaxurl() {
@@ -38,17 +69,17 @@ add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
 function filter_photos() {
     $category = $_POST['category'];
     
-    // Effectuez la même requête WP_Query que dans le code précédent pour récupérer les photos filtrées
+    // Effectuer la même requête WP_Query que dans le code précédent pour récupérer les photos filtrées
     
-    // Construisez le HTML des photos filtrées
+    // Construction du HTML des photos filtrées
     ob_start();
     if ($photos->have_posts()) {
         while ($photos->have_posts()) {
             $photos->the_post();
             
-            // Récupérez les champs ACF pour chaque photo
+            // Récupére les champs ACF pour chaque photo
             
-            // Construisez le HTML pour chaque photo filtrée
+            // Construit le HTML pour chaque photo filtrée
         }
     } else {
         // Aucune photo trouvée
@@ -59,7 +90,7 @@ function filter_photos() {
     wp_die();
 }
 
-// Ajoutez la fonction pour gérer la requête AJAX "charger plus"
+// Ajoute la fonction pour gérer la requête AJAX "charger plus"
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
 
@@ -179,30 +210,18 @@ function filter() {
             // Aucune photo trouvée
     }
     
-    // Réinitialisez la requête WordPress
+    // Réinitialise la requête WordPress
     wp_reset_postdata();
    //afficherImages($requeteAjax, true);
    $html_content = ob_get_clean();
 
 echo ($html_content );
 
-    // Terminer le script
+    // Termine le script
     die();
 }
 add_action('wp_ajax_nopriv_filter', 'filter');
 add_action('wp_ajax_filter', 'filter');
-
-// function afficherImages($galerie, $exit) {
-
-//     if($galerie->have_posts()) {
-//         while ($galerie->have_posts()) { 
-//         // <?php $galerie->the_post(); 
-//           //  <div class="colonne">
-//               //  <div class="rangee">
-//               /*      <img class="img-medium" src="<?php echo the_post_thumbnail_url(); 
-//                //     <div>
-//                //         <div class="img-hover" >
-//                //             <img class="btn-plein-ecran" src="<?php echo get_template_directory_uri(); 
 
 
 

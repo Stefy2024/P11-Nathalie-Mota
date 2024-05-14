@@ -17,7 +17,7 @@
 <body>
    
     <div class="nav_bar">
-        <img class="mota_logo" src="<?php echo get_template_directory_uri(); ?>.\assets\images\logo.png" alt="logo Nathalie Mota" />
+        <a href="http://nathaliemota.test/"> <img class="mota_logo" src="<?php echo get_template_directory_uri(); ?>.\assets\images\logo.png" alt="logo Nathalie Mota" /></a>
 
         <nav id="navigation">
             <?php wp_nav_menu(
