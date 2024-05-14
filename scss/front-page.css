@@ -1,18 +1,23 @@
 /*Hero*/
-.hero_img {
+.hero_mota {
+  position: relative;
+}
+.hero_mota .hero_img {
   position: relative;
   margin: auto;
   align-items: center;
   width: 100%;
   max-height: 966px;
   overflow: hidden;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
-
-.hero_title {
+.hero_mota .hero_title {
   position: absolute;
-  top: 70%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 2;
 }
 
 /*filtres*/

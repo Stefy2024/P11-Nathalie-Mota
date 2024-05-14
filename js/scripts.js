@@ -29,7 +29,19 @@ document.addEventListener('DOMContentLoaded', function () {
             contactSingle.onclick = function() {
             modal.style.display = "block";}
         }
-        //else {console.log("btn_single_photo non trouvé");}
+    //remplissage du label référence sur le formulaire de contact de single-photo-publi.php
+    jQuery(document).ready(function($) {
+        // Lorsqu'on ouvre la modal, définit la valeur du champ 'Ref. photo'
+        $('.open-modal').on('click', function() {
+            var photoReference = $(this).data('reference'); // Récupère la référence stockée dans l'attribut data-reference
+            $('#myModal').find('input[name="your-subject"]').val(photoReference);
+        });
+    
+        // Ferme la modal et réinitialise le champ lorsque l'utilisateur clique sur 'x'
+        $('.close').on('click', function() {
+            $('#myModal').find('input[name="your-subject"]').val('');
+        });
+    });
 
     // au click sur la croix, on ferme (display=none)
     span.onclick = function() {

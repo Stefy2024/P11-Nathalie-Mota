@@ -87,7 +87,7 @@ $photo = get_field('photo_image');
 	<div class="container_contact">
 		<div class="photo_contact">
 			<p>Cette photo vous intéresse?
-				<button id="btn_single_photo" type="button">Contact</button>
+				<button id="btn_single_photo" type="button"class="open-modal" data-reference="<?php echo esc_attr($reference); ?>">Contact</button>
 			</p>
 			<?php 
 			
