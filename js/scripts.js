@@ -2,9 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     //variables lightbox
         //on selectionne toutes les images converties ensuite en tableau, en excluant les images de lien lightbox et des publications
-        const images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
-        //const lightboxPrev = document.querySelector('.lightbox__prev');
-        //const lightboxNext = document.querySelector('.lightbox__next');
+        let images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
         let currentImageIndex = 0;
         let page=1;
 
@@ -125,33 +123,6 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
     /****************lightbox**********************/
-
-//     //swiper pour le défilement des images
-
-// var swiper = new Swiper('.swiper-container', {
-//     // Désactive l'animation automatique
-//     autoplay: false,
-  
-//     // Affiche une seule image à la fois
-//     slidesPerView: 1,
-  
-//     // active le défilement par glissement
-//     allowTouchMove: true,
-  
-//     // Ajoutez des boutons de navigation
-//     navigation: {
-//       nextEl: '.swiper-button-next',
-//       prevEl: '.swiper-button-prev',
-//     },
-  
-//     // Désactivez la pagination
-//     pagination: {
-//       el: '.swiper-pagination',
-//       type: 'bullets',
-//       clickable: true,
-//     },
-//   });
-
     /*images des liens vers lighbox et photo-publi*/
 
 
@@ -198,6 +169,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         //constructeur de la classe qui prend 'url de l'image à afficher en paramètre
         constructor(url, images, index) {
+            console.log('constructor');
+            this.url = url;
             this.images = images;
             this.index = index;
             this.buildDOM(url);
@@ -221,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         //pour naviguer entre les images
-        nextImage() {
+        nextImage() {console.log(this.index);
             this.index = (this.index + 1) % this.images.length;
             this.updateImage();
         }
@@ -254,40 +227,39 @@ document.addEventListener('DOMContentLoaded', function () {
             
             const img = document.createElement('img');
             img.src= url;
-            // Récupère l'élément DOM de la diapositive actuelle
-          //  var currentSlide = swiper.getSlide(swiper.activeIndex);
-
-            // Récupère l'image à l'intérieur de la diapositive actuelle
-           // var lb = currentSlide.querySelector('img');
-           // lb.src=url;
-          //  document.querySelector('.lightbox').classList.add('fadeIn');
             let lb =document.querySelector('.lightbox__container img');
             lb.src=url;
             document.querySelector('.lightbox').classList.add('fadeIn');
         
         }
 
-            //pour passer d'une image à l'autre
-                //déclaration de variables
-        //    ChangeImage(sens) {
-        //     currentImageIndex += sens;
-        //     if (currentImageIndex > sl){}
-                
-
-        //     }
-
     }
 
     Lightbox.init = function() {
-        const links = Array.from(document.querySelectorAll('.photo_simple .link_lightbox'));
-        const images = links.map(link => link.parentElement.previousElementSibling);
-    
-        links.forEach((link, i) => link.addEventListener('click', (e) => {
-            e.preventDefault();
-            new Lightbox(images[i].getAttribute('src'), images, i);
-        }));
+        const container = document.querySelector('.photo_flex');
+        container.addEventListener('click', (e) => {
+            const link = e.target.closest('.photo_simple .link_lightbox');
+            const image_selec = e.target.closest('.photo_simple').querySelector('img:not(.overlay img)');
+            const src_image= image_selec.getAttribute('src');
+            console.log('Sapin de noel');
+            console.log(src_image);
+            let index='';
+            images.forEach((image, i) => {
+                console.log(`URL of image ${i}:`, image.getAttribute('src'));
+                if (image.getAttribute('src')==src_image){
+                    index=i;
+                }
+            });
+            console.log('link'+ link);
+            console.log('index'+ index);
+            if (link) {
+                console.log('rentrer');
+                e.preventDefault();
+                //const image = link.parentElement.previousElementSibling;
+                new Lightbox(src_image, images, index);
+            }
+        });
     }
-
 
 
    Lightbox.init();
@@ -319,8 +291,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     //console.log(resultat);
                     if (chargerPlus) {
                         $('.photo_flex').append(resultat);
+                        images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
                     } else {
                         $('.photo_flex').html(resultat);
+                        images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
                     }
                 },
                 error: function(xhr, textStatus, errorThrown) {
