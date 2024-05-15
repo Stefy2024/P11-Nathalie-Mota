@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function () {
     //variables lightbox
         //on selectionne toutes les images converties ensuite en tableau, en excluant les images de lien lightbox et des publications
         const images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
-        const lightboxPrev = document.querySelector('.lightbox__prev');
-        const lightboxNext = document.querySelector('.lightbox__next');
+        //const lightboxPrev = document.querySelector('.lightbox__prev');
+        //const lightboxNext = document.querySelector('.lightbox__next');
         let currentImageIndex = 0;
         let page=1;
 
@@ -85,7 +85,8 @@ document.addEventListener('DOMContentLoaded', function () {
         page=1;
         showfilter(false, page);   
     }
-
+    
+   
     //const selects = document.querySelectorAll('.filters select');
   /*ajpout effet survol filtres*/
     // // Fonction pour réinitialiser le style des options
@@ -154,17 +155,19 @@ document.addEventListener('DOMContentLoaded', function () {
     /*images des liens vers lighbox et photo-publi*/
 
 
-    var lightboxLinks = document.querySelectorAll('.photo_simple .link_lightbox');
+    const lightboxLinks = document.querySelectorAll('.photo_simple .link_lightbox');
     var menuLinks = document.querySelectorAll('.photo_simple .link_publi');
 
-    lightboxLinks.forEach(function(link) {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            var image = this.querySelector('img');
-            var url = image.getAttribute('src');
-            var lightbox = new Lightbox(url);
-        });
-    });
+ //   lightboxLinks.forEach(function(link) {
+    //     link.addEventListener('click', function(e) {
+           // e.preventDefault();
+     //       Lightbox.init();
+     //       console.log ('Lightbox');
+            //  var image = this.querySelector('img');
+            //  var url = image.getAttribute('src');
+            //  var lightbox = new Lightbox(url);
+        // });
+   //  });
 
     menuLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
@@ -176,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /*ouverture et fermeture de la lightbox*/
-
+    
     
     class Lightbox {
         //pour initialiser la fonctionnalité de la lightbox
@@ -187,13 +190,16 @@ document.addEventListener('DOMContentLoaded', function () {
             links.forEach((link, i)=> link.addEventListener('click', (e)=> {
                 e.preventDefault()
                 console.log(i);
+                console.log('tityiti');
                 const imageSrc = images[i].getAttribute('src');
                 new Lightbox(imageSrc);
             }))
         }
 
         //constructeur de la classe qui prend 'url de l'image à afficher en paramètre
-        constructor(url) {      
+        constructor(url, images, index) {
+            this.images = images;
+            this.index = index;
             this.buildDOM(url);
             this.bindEvents();
         }
@@ -201,9 +207,33 @@ document.addEventListener('DOMContentLoaded', function () {
         //pour fermer la lighbox, bindEvents() va servir à lier les évènements aux éléments dela lightbox (clic sur croix)
         bindEvents() {
             const closeButton = document.querySelector('.lightbox__close');
+            const nextButton = document.querySelector('.lightbox__next');
+            const prevButton = document.querySelector('.lightbox__prev');
+           
             if (closeButton) {
                 closeButton.addEventListener('click', this.removeFadeIn.bind(this));
             }
+            if (nextButton) {
+                nextButton.addEventListener('click', this.nextImage.bind(this));
+            }
+            if (prevButton) {
+                prevButton.addEventListener('click', this.prevImage.bind(this));
+            }
+        }
+        //pour naviguer entre les images
+        nextImage() {
+            this.index = (this.index + 1) % this.images.length;
+            this.updateImage();
+        }
+    
+        prevImage() {
+            this.index = (this.index - 1 + this.images.length) % this.images.length;
+            this.updateImage();
+        }
+    
+        updateImage() {
+            const imageElement = document.querySelector('.lightbox__container img');
+            imageElement.src = this.images[this.index].getAttribute('src');
         }
         //pour supprimer la classe fadeIn
         removeFadeIn() {
@@ -248,11 +278,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
-    Lightbox.init();
+    Lightbox.init = function() {
+        const links = Array.from(document.querySelectorAll('.photo_simple .link_lightbox'));
+        const images = links.map(link => link.parentElement.previousElementSibling);
+    
+        links.forEach((link, i) => link.addEventListener('click', (e) => {
+            e.preventDefault();
+            new Lightbox(images[i].getAttribute('src'), images, i);
+        }));
+    }
 
 
 
-    /*************bouton charger plus*****************/
+   Lightbox.init();
+
+    /*************bouton charger plus et lightbox*****************/
 
     (function($) {
         'use strict';
