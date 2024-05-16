@@ -129,17 +129,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const lightboxLinks = document.querySelectorAll('.photo_simple .link_lightbox');
     var menuLinks = document.querySelectorAll('.photo_simple .link_publi');
 
- //   lightboxLinks.forEach(function(link) {
-    //     link.addEventListener('click', function(e) {
-           // e.preventDefault();
-     //       Lightbox.init();
-     //       console.log ('Lightbox');
-            //  var image = this.querySelector('img');
-            //  var url = image.getAttribute('src');
-            //  var lightbox = new Lightbox(url);
-        // });
-   //  });
-
     menuLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -150,8 +139,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     /*ouverture et fermeture de la lightbox*/
-    
-    
     class Lightbox {
         //pour initialiser la fonctionnalité de la lightbox
         static init() {
@@ -163,17 +150,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log(i);
                 console.log('tityiti');
                 const imageSrc = images[i].getAttribute('src');
-                new Lightbox(imageSrc);
+                new Lightbox(src_image, images, index, reference, category);
             }))
         }
 
         //constructeur de la classe qui prend 'url de l'image à afficher en paramètre
-        constructor(url, images, index) {
+        constructor(url, images, index, reference, category) {
             console.log('constructor');
             this.url = url;
             this.images = images;
             this.index = index;
-            this.buildDOM(url);
+            this.reference = reference;
+            this.category = category;
+            this.buildDOM(url, reference, category);
             this.bindEvents();
         }
 
@@ -195,18 +184,30 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         //pour naviguer entre les images
         nextImage() {console.log(this.index);
-            this.index = (this.index + 1) % this.images.length;
-            this.updateImage();
+            this.index = (this.index + 1) % this.images.length; // % pour ne pas dépasser le nombre existant dans l'index, pour faire une boucle
+            this.updateImage(); //mettre à jour image
+            this.updateInfo(); //mettre à jour réf et catégorie
         }
     
         prevImage() {
             this.index = (this.index - 1 + this.images.length) % this.images.length;
             this.updateImage();
+            this.updateInfo();
         }
     
         updateImage() {
             const imageElement = document.querySelector('.lightbox__container img');
             imageElement.src = this.images[this.index].getAttribute('src');
+        }
+
+        updateInfo() {
+            const photoElement = this.images[this.index].closest('.photo_simple');
+            const reference = photoElement.getAttribute('data-reference');
+            const category = photoElement.getAttribute('data-category');
+            const referenceElement = document.querySelector('#lightbox_reference');
+            referenceElement.textContent = reference;
+            const categoryElement = document.querySelector('#lightbox_category');
+            categoryElement.textContent = category;
         }
         //pour supprimer la classe fadeIn
         removeFadeIn() {
@@ -223,16 +224,32 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 500);
         }
         
-        buildDOM(url) {
+        buildDOM(url, reference, category) {
             
             const img = document.createElement('img');
             img.src= url;
             let lb =document.querySelector('.lightbox__container img');
             lb.src=url;
             document.querySelector('.lightbox').classList.add('fadeIn');
-        
-        }
+            //construction de la partie réf et catégorie de la photo sur lightbox
+            const referenceElement = document.createElement('p');
+            referenceElement.textContent = reference;
+            referenceElement.id = 'lightbox_reference';
+            referenceElement.className = 'lightbox_ref';
+            const categoryElement = document.createElement('p');
+            categoryElement.textContent = category;
+            categoryElement.id = 'lightbox_category';
+            categoryElement.className = 'lightbox_cat';
 
+            const infoContainer = document.querySelector('.lightbox__container .lightbox_info');
+            //pour supprimer les éléments précédents (éviter de reprendre les info de la photo précédente visionnée)
+            while (infoContainer.firstChild) {
+                infoContainer.removeChild(infoContainer.firstChild);
+            }
+            // pour ajouter les nouveaux éléments de paragraphe
+            infoContainer.appendChild(referenceElement);
+            infoContainer.appendChild(categoryElement);
+        }
     }
 
     Lightbox.init = function() {
@@ -245,18 +262,23 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log(src_image);
             let index='';
             images.forEach((image, i) => {
-                console.log(`URL of image ${i}:`, image.getAttribute('src'));
+                //console.log(`URL of image ${i}:`, image.getAttribute('src'));
                 if (image.getAttribute('src')==src_image){
                     index=i;
                 }
             });
-            console.log('link'+ link);
-            console.log('index'+ index);
+            //console.log('link'+ link);
+            //console.log('index'+ index);
             if (link) {
-                console.log('rentrer');
+               // console.log('rentrer');
                 e.preventDefault();
+                const photoElement = e.target.closest('.photo_simple');
+                const image_selec = photoElement.querySelector('img:not(.overlay img)');
+                const src_image = image_selec.getAttribute('src');
+                const reference = photoElement.getAttribute('data-reference');
+                const category = photoElement.getAttribute('data-category');
                 //const image = link.parentElement.previousElementSibling;
-                new Lightbox(src_image, images, index);
+                new Lightbox(src_image, images, index, reference, category);
             }
         });
     }

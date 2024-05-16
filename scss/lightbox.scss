@@ -16,7 +16,7 @@
         &.fadeIn{
             opacity: 1;
             visibility: visible;
-            z-index: 99;
+            z-index: 90;
         }
 
         .lightbox__next{
@@ -61,17 +61,38 @@
 
         .lightbox__container{
             display: flex;
+            flex-direction: column; //pour empiler verticalement l'image et les informations
             align-items: center;
             justify-content: center;
             margin:5% 10%;
             min-height: 100vh;
 
             img{
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                
                 max-width: 100%;
                 height: auto;
+            }
+             .lightbox_info{
+                 display: flex;
+                 justify-content: space-between;
+                 align-items: center;
+                 width: 100%;
+                 color: #fff;
+                 
+                
+
+               .lightbox_ref {
+                    text-align: left;
+                    color: #fff;
+                    margin-left: 10%;
+                    
+                }
+            
+                .lightbox_cat {
+                    text-align: right;
+                    color: #fff;
+                    margin-right:10%;
+                }
             }
         }
 }
