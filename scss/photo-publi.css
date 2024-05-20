@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*1ere section*/
 .photo__container {
   display: flex;
@@ -30,8 +31,55 @@
   line-height: 30px;
   letter-spacing: 2px;
 }
-.photo__container .container__photo img {
+.photo__container .container__photo .photo_simple {
+  margin-bottom: 20px; /* Espacement entre les lignes */
+  overflow: hidden;
+  height: 500px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.photo__container .container__photo .photo_simple img {
   width: 100%;
+  height: auto;
+}
+.photo__container .container__photo .photo_simple:hover .overlay {
+  opacity: 1;
+}
+.photo__container .container__photo .photo_simple .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  /*lien photo vers lightbox */
+}
+.photo__container .container__photo .photo_simple .overlay a {
+  position: relative;
+}
+.photo__container .container__photo .photo_simple .overlay a img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  z-index: 1;
+}
+.photo__container .container__photo .photo_simple .overlay a.link_lightbox {
+  position: absolute;
+  top: 4%;
+  right: 4%;
+  z-index: 5;
+}
+.photo__container .container__photo .photo_simple .overlay a .img_lightbox {
+  position: absolute;
+  width: 30px;
   height: auto;
 }
 
@@ -80,17 +128,79 @@
   justify-content: space-between;
   overflow: hidden;
 }
-.other-photo .flex-container a {
+.other-photo .flex-container .photo_simple {
+  width: calc(50% - 10px); /* Moitié de la largeur de la page moins un espace entre les colonnes */
+  margin-bottom: 20px; /* Espacement entre les lignes */
+  overflow: hidden;
+  height: 500px;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: calc(50% - 10px);
-  max-height: 500px;
 }
-.other-photo .flex-container a img {
+.other-photo .flex-container .photo_simple:hover .overlay {
+  opacity: 1;
+}
+.other-photo .flex-container .photo_simple .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  /*liens photos vers lightbox ou photo-publi*/
+}
+.other-photo .flex-container .photo_simple .overlay .photo_reference {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: #fff;
+}
+.other-photo .flex-container .photo_simple .overlay .photo_category {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: #fff;
+}
+.other-photo .flex-container .photo_simple .overlay a {
+  position: relative;
+}
+.other-photo .flex-container .photo_simple .overlay a img {
+  width: 100%;
+  height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
-  -o-object-position: center center;
-     object-position: center center;
+  z-index: 1;
+}
+.other-photo .flex-container .photo_simple .overlay a.link_lightbox {
+  position: absolute;
+  top: 4%;
+  right: 4%;
+  z-index: 5;
+}
+.other-photo .flex-container .photo_simple .overlay a.link_publi {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  z-index: 5;
+}
+.other-photo .flex-container .photo_simple .overlay a .img_lightbox, .other-photo .flex-container .photo_simple .overlay a .img_publi {
+  position: absolute;
+  width: 30px;
+  height: auto;
+}
+.other-photo .flex-container .photo_simple .overlay a .img_publi {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.other-photo .flex-container .photo_simple .overlay a .img_lightbox {
+  top: 10%;
+  left: 90%;
+  transform: translate(-90%, -10%);
 }/*# sourceMappingURL=photo-publi.css.map */

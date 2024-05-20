@@ -69,7 +69,7 @@ get_template_part('template-parts/modal/contact');
 
 <?php get_template_part('filtres'); ?>
 
-<div class="photo_flex">
+<div class="photo_flex photo-lightbox">
 <?php
 $paramrequette= array(
     'post_type' => 'photo-publi', // type de contenu où sont stockées les photos

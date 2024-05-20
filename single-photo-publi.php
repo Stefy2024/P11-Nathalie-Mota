@@ -75,12 +75,21 @@ $photo = get_field('photo_image');
 				</ul>
 		</div>
 
-		<div class="container__photo flex-item">
-			<?php if($photo) {
-						echo wp_get_attachment_image( $photo, 'large' );
-						} else {
-						echo ('Pas de correspondance');
-						} ?> 		
+		<div class="container__photo flex-item photo-lightbox">
+			<?php if ($photo) {
+				$post_url = get_permalink($post->ID);
+								echo '<div class="photo_simple"> '; 
+									echo '<a href="' . esc_url($post_url) . '"><img src="' . wp_get_attachment_image_url( $photo, 'large' ) . '" alt="photos même catégorie"></a>';
+									echo '<div class="overlay">';
+										echo '<a href="#" class="link_lightbox">';
+											echo '<img class="img_lightbox" src="' . get_template_directory_uri() . '/assets/images/lien_lightbox.png" alt="lien lightbox">';
+										echo '</a>';
+									
+									echo '</div>';
+								echo '</div>';
+							}else {
+					echo ('Pas de correspondance');
+				} ?> 		
 		</div>
 	</article>
 
@@ -120,6 +129,7 @@ $photo = get_field('photo_image');
 <?php
 get_template_part('template-parts/photo-autre');
 get_template_part('template-parts/modal/contact');
+get_template_part('template-parts/lightbox');
 
 ?>
 			

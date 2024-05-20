@@ -22,19 +22,20 @@
             $post_url = get_permalink($post->ID);
         
             // Affiche l'image avec un lien vers la publication correspondante (photo-publi ou lightbox)
-            echo '<div class="photo_simple" data-reference="' . $reference . '" data-category="' . $categorie . '">'; //pour récuperer la référence et la catégorie pour la lightbox
-                echo wp_get_attachment_image($photo, 'large');
-                    echo '<div class="overlay">';
-                        echo '<a href="#" class="link_lightbox">';
-                            echo '<img class="img_lightbox" src="wp-content/themes/NathalieMota/assets/images/lien_lightbox.png" alt="lien lightbox">';
-                        echo '</a>';
-                        echo '<a href="' . esc_url($post_url) . '" class="link_publi">';
-                            echo '<img class="img_publi" src="wp-content/themes/NathalieMota/assets/images/lien_publi.png" alt="lien publication">';
-                        echo '</a>';
-                        echo '<p class="photo_reference">' . $reference . '</p>';
-                        echo '<p class="photo_category">' . $categorie . '</p>';
-                    echo '</div>';
-            echo '</div>';
+            
+                echo '<div class="photo_simple" data-reference="' . $reference . '" data-category="' . $categorie . '">'; //pour récuperer la référence et la catégorie pour la lightbox
+                    echo wp_get_attachment_image($photo, 'large');
+                        echo '<div class="overlay">';
+                            echo '<a href="#" class="link_lightbox">';
+                                echo '<img class="img_lightbox" src="'.get_template_directory_uri().'/assets/images/lien_lightbox.png" alt="lien lightbox" alt="lien lightbox">';
+                            echo '</a>';
+                            echo '<a href="' . esc_url($post_url) . '" class="link_publi">';
+                                echo '<img class="img_publi" src="'.get_template_directory_uri().'/assets/images/lien_publi.png" alt="lien publication">';
+                            echo '</a>';
+                            echo '<p class="photo_reference">' . $reference . '</p>';
+                            echo '<p class="photo_category">' . $categorie . '</p>';
+                        echo '</div>';
+                echo '</div>';
         }
 
 ?>
