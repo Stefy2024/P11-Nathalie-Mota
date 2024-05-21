@@ -31,22 +31,22 @@
   line-height: 30px;
   letter-spacing: 2px;
 }
-.photo__container .container__photo .photo_simple {
+.photo__container .container__photo .photo_alone {
   margin-bottom: 20px; /* Espacement entre les lignes */
   overflow: hidden;
-  height: 500px;
+  height: auto;
   position: relative;
   display: flex;
   align-items: center;
 }
-.photo__container .container__photo .photo_simple img {
+.photo__container .container__photo .photo_alone img {
   width: 100%;
   height: auto;
 }
-.photo__container .container__photo .photo_simple:hover .overlay {
+.photo__container .container__photo .photo_alone:hover .overlay {
   opacity: 1;
 }
-.photo__container .container__photo .photo_simple .overlay {
+.photo__container .container__photo .photo_alone .overlay {
   position: absolute;
   top: 0;
   left: 0;
@@ -61,23 +61,23 @@
   transition: opacity 0.8s ease-in-out;
   /*lien photo vers lightbox */
 }
-.photo__container .container__photo .photo_simple .overlay a {
+.photo__container .container__photo .photo_alone .overlay a {
   position: relative;
 }
-.photo__container .container__photo .photo_simple .overlay a img {
+.photo__container .container__photo .photo_alone .overlay a img {
   width: 100%;
   height: 100%;
   -o-object-fit: contain;
      object-fit: contain;
   z-index: 1;
 }
-.photo__container .container__photo .photo_simple .overlay a.link_lightbox {
+.photo__container .container__photo .photo_alone .overlay a.link_lightbox {
   position: absolute;
   top: 4%;
-  right: 4%;
+  right: 10%;
   z-index: 5;
 }
-.photo__container .container__photo .photo_simple .overlay a .img_lightbox {
+.photo__container .container__photo .photo_alone .overlay a .img_lightbox {
   position: absolute;
   width: 30px;
   height: auto;
@@ -100,13 +100,21 @@
   border-color: #D8D8D8;
   border-radius: 5px;
 }
-.container_contact .photo_next_prev a {
+.container_contact .photo_next_prev {
+  display: flex;
+  flex-direction: row;
+}
+.container_contact .photo_next_prev .nav-thumbnail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
   color: #000000;
   font-size: 25px;
   margin-left: 30px;
 }
-.container_contact .photo_next_prev a:hover {
+.container_contact .photo_next_prev .nav-thumbnail:hover {
   color: #aaa;
 }
 

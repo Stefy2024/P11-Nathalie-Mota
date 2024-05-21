@@ -37,12 +37,14 @@
         }
     }
     .container__photo{
+
+
         
-        .photo_simple {
+        .photo_alone {
             //width: calc(50% - 10px); /* Moitié de la largeur de la page moins un espace entre les colonnes */
             margin-bottom: 20px; /* Espacement entre les lignes */
             overflow: hidden;
-            height: 500px;
+            height: auto;
             position: relative;
             display: flex;
             align-items: center;
@@ -86,7 +88,7 @@
                         &.link_lightbox{
                             position: absolute;
                             top:4%;
-                            right: 4%;
+                            right: 10%;
                             z-index: 5;
                         }
                         
@@ -121,15 +123,22 @@
             }
     }
     .photo_next_prev{
-        a{
-            text-decoration: none;
-            color:#000000;
-            font-size: 25px;
-            margin-left: 30px;
-            &:hover {
-                color: #aaa;
-            }
+        display: flex;
+        flex-direction: row;
 
+        .nav-thumbnail{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+                color:#000000;
+                font-size: 25px;
+                margin-left: 30px;
+                &:hover {
+                    color: #aaa;
+          
+                }
         }
     }
 }

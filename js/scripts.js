@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 console.log('LAPIN');
                 const container = document.querySelector('.photo-lightbox');
                 container.addEventListener('click', (e) => {
-                    const link = e.target.closest('.photo_simple .link_lightbox');
-                   const image_selec = e.target.closest('.photo_simple').querySelector('img:not(.overlay img)');
+                    const link = e.target.closest('.photo_alone .link_lightbox');
+                   const image_selec = e.target.closest('.photo_alone').querySelector('img:not(.overlay img)');
                    const src_image= image_selec.getAttribute('src');
                    console.log('Sapin de noel');
                    console.log(src_image);
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
                    if (link) {
                       // console.log('rentrer');
                        e.preventDefault();
-                       const photoElement = e.target.closest('.photo_simple');
+                       const photoElement = e.target.closest('.photo_alone');
                        const image_selec = photoElement.querySelector('img:not(.overlay img)');
                        const src_image = image_selec.getAttribute('src');
                        const reference = photoElement.getAttribute('data-reference');

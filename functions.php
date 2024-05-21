@@ -1,5 +1,5 @@
 <?php
-
+add_theme_support( 'post-thumbnails' );
 
 //ajout du fichier js
 add_action('wp_enqueue_scripts', 'enqueue_contact_Mota_scripts');
