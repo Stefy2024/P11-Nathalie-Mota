@@ -1,6 +1,8 @@
 /*Hero*/
 .hero_mota {
     position: relative; 
+    margin: 0 -5% 0 -5%;
+  
         .hero_img{
             position: relative;
             margin: auto;
@@ -17,6 +19,7 @@
             left: 50%; 
             transform: translate(-50%, -50%); 
             z-index: 2; 
+            width: 80%;
         }
 }
 /*filtres*/
@@ -28,29 +31,29 @@ justify-content: space-between;
 
         
     
-    .left-filters {
+    .left-filters, .right-filters {
         select{
         padding: 10px; /* Ajustez la taille des cadres des filtres en modifiant le padding */
         width:21rem;
         margin: 5px 0px; /* Espacement entre les filtres */
-        border: 2px solid #e5e5e5; /* Bordure des cadres */
+        border: 3px solid #d9d9d9; /* Bordure des cadres */
         border-radius: 5px;
         background-color: #fefefe;
         text-transform: uppercase;
         }
     }
-    .right-filters{
-        select{
-        padding: 10px; /* Ajustez la taille des cadres des filtres en modifiant le padding */
-        width:21rem;
-        margin: 5px 0px; /* Espacement entre les filtres */
-        border: 2px solid #e5e5e5; /* Bordure des cadres */
-        border-radius: 5px;
-        background-color: #fefefe;
-        text-transform: uppercase;
-        }
+    // .right-filters{
+    //     select{
+    //     padding: 10px; /* Ajustez la taille des cadres des filtres en modifiant le padding */
+    //     width:21rem;
+    //     margin: 5px 0px; /* Espacement entre les filtres */
+    //     border: 2px solid #e5e5e5; /* Bordure des cadres */
+    //     border-radius: 5px;
+    //     background-color: #fefefe;
+    //     text-transform: uppercase;
+    //     }
     }
-}
+
 /*bouton charger plus*/
 .load-more{
     display: flex;
@@ -67,3 +70,41 @@ justify-content: space-between;
     }
 
 }
+
+ // *******************Affichage mobile************************//
+@media (max-width: 768px) {
+    /*Hero*/
+    .hero_mota {
+        margin: 0;
+        .hero_img{
+            max-height: 300px;    
+        }
+    }
+    /*filtres*/
+    .filters{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+        
+        .left-filters, .right-filters {
+            select{
+            padding: 10px;
+            width:15rem;
+            }
+        }
+        .left-filters{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+    /*bouton charger plus*/
+    .load-more{
+        button{ 
+            width:15rem;
+        }
+    }
+}
+

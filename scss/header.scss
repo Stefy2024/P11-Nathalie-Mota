@@ -4,9 +4,34 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 2%;
+    padding-left: 7%;
+    padding-right: 7%;
+
+    .burger_menu {
+        display: none; // Le bouton est caché par défaut
+        cursor: pointer;
+        span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: black;
+            margin: 5px 0;
+            transition: 0.3s;
+        }
+    }
+
+    .close_icon {
+        display: none; // La croix est cachée par défaut
+        cursor: pointer;
+        font-size: 30px; // Taille de la croix
+        position: absolute; // Positionnement absolu pour placer la croix
+        top: 20px; // Position verticale
+        right: 20px; // Position horizontale
+    }
 
     #navigation{
-        padding-right: 150px;
+        
+             
             ul{
             display: flex;
             flex-direction: row;
@@ -28,7 +53,62 @@
         width:240px;
         height: 16px;
     }
-    
+}   
 
+/* bouton fermeture */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding:4px;
 }
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+  // *******************Affichage mobile************************//
+
+
+@media (max-width: 768px) {
+    .nav_bar{
+        padding-right: 2%;
+            .burger_menu {
+                display: block; // Affiche le bouton sur les petits écrans
+            }
+
+            #navigation {
+                display: none; // Cache le menu de navigation
+                flex-direction: column; // Pour afficher les éléments en colonne
+                align-items: center; // Pour centrer les éléments
+                width: 100%; // Pour occuper toute la largeur
+
+                    ul {
+                        display: flex;
+                        flex-direction: column;
+                        width: 100%; // Pour occuper toute la largeur
+                    }
+
+                    li {
+                        text-align: center; // Pour centrer le texte
+                        padding:  0; // Pour ajouter de l'espace autour des liens
+                    }
+            }
+
+            // Lorsque .is-active est ajouté à #navigation, le menu s'affiche
+            #navigation.is-active {
+                display: flex;
+            }
+
+            #navigation.is-active + .close_icon {
+                display: block; // Affiche la croix lorsque le menu est actif
+            }
+    }
+        
+}
+
  

@@ -2,15 +2,13 @@
 .modal {
     display: none; /* caché par défaut */
     position: fixed; 
-    z-index: 1; 
+    z-index: 5; 
     left: 0;
     top: 0;
     width: 100%; /* pleine largeur */
     height: 100%; /* pleine hauteur */
     overflow: auto; 
-    /*background-color: rgb(0,0,0);  */
     background-color: rgba(0,0,0,0.4); 
-
 
     .modal-content {
         background-color: #fefefe;
@@ -42,6 +40,7 @@
                     width: 300px; 
                     height: 50px;
                   }
+               
                   input[type="submit"] {
                     width: 290px;
                     height: 50px;
@@ -53,26 +52,38 @@
                        opacity: 0.5;
                     }
                   }
-                }
-                         
-            }}
-        
-    
-
- 
-
-/* bouton fermeture */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    padding:4px;
+        }                    
+    }
 }
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+  
+ // *******************Affichage mobile************************//
+ @media (max-width: 768px) {
+  .modal {
+    .modal-content {
+        width: 80%; 
+    
+        .mota-form-container{
+          p{
+            margin-top: 2%;
+          }
+                  .wpcf7-text {
+                    width: 250px; 
+                    height: 50px;
+                    margin-top: 2%;
+                  }
+                  .wpcf7-textarea {
+                    width: 250px; 
+                    height: 150px;
+                    margin-top: 2%;
+                  }
+                  input[type="submit"] {
+                    width: 250px;
+                    height: 50px;
+                    margin: 5% 0 5% 0;
+                  }
+               
+        }
+                         
+    }
+  }
 }

@@ -1,0 +1,71 @@
+/*2eme section- contact*/
+.container_contact{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2% 0;
+    height: 118px;
+    .photo_contact{
+        display: flex;
+        flex-direction: row;
+
+            #btn_single_photo{
+                margin-left: 200px;
+                width: 270px;
+                height: 50px;
+                font-size: 12px;
+                border-color:#D8D8D8;
+                border-radius: 5px;
+            }
+    }
+    .photo_next_prev{
+        display: flex;
+        flex-direction: row;
+
+        .nav-thumbnail{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+                color:#000000;
+                font-size: 25px;
+                margin-left: 30px;
+                &:hover {
+                    color: #aaa;
+          
+                }
+        }
+    }
+}
+
+// *******************Affichage mobile************************//
+@media (max-width: 768px) {
+
+    .container_contact{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: 2% 0;
+        height: 118px;
+
+        .photo_contact{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+                #btn_single_photo{
+                    margin-left: 0;
+                }
+                p{
+                    align-self: flex-start;
+                }
+        }
+        .photo_next_prev{
+            display: none;
+        }
+    }
+    
+}

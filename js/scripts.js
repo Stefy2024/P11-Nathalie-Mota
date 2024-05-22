@@ -52,6 +52,25 @@ document.addEventListener('DOMContentLoaded', function () {
             modal.style.display = "none";
         }
     }
+
+    /************partie JS mobile*****************/
+
+    const burger = document.querySelector('.burger_menu');
+    const nav = document.querySelector('#navigation');
+    const closeIcon = document.querySelector('.close_icon');
+
+    burger.addEventListener('click', function() {
+        nav.classList.toggle('is-active');
+        closeIcon.style.display = 'block'; // Affiche la croix
+        burger.style.display = 'none'; // Cache le menu burger
+    });
+
+    closeIcon.addEventListener('click', function() {
+        nav.classList.remove('is-active');
+        closeIcon.style.display = 'none'; // Cache la croix
+        burger.style.display = 'block'; // Affiche le menu burger
+    });
+
     /****************lightbox**********************/
     /*images des liens vers lighbox et photo-publi*/
 
@@ -183,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     Lightbox.init = function() {
+        //photo principale single-photo-publi.php
             console.log('truc machin chose');
             if (document.querySelector('.photo-lightbox')) {
                 console.log('LAPIN');
@@ -200,10 +220,9 @@ document.addEventListener('DOMContentLoaded', function () {
                            index=i;
                        }
                    });
-                   //console.log('link'+ link);
-                   //console.log('index'+ index);
+
                    if (link) {
-                      // console.log('rentrer');
+                       console.log('rentrer');
                        e.preventDefault();
                        const photoElement = e.target.closest('.photo_alone');
                        const image_selec = photoElement.querySelector('img:not(.overlay img)');
@@ -215,7 +234,7 @@ document.addEventListener('DOMContentLoaded', function () {
                    }
                });    
             } 
-
+        //photo-galerie:photo "vous aimerez aussi" single-photo-publi.php et photo front-page.php
             console.log('photo-autre-lightbox');
             if (document.querySelector('.photo-autre-lightbox')){
                 console.log('TORTUE');
@@ -233,10 +252,8 @@ document.addEventListener('DOMContentLoaded', function () {
                            index=i;
                        }
                    });
-                   //console.log('link'+ link);
-                   //console.log('index'+ index);
                    if (link) {
-                      // console.log('rentrer');
+
                        e.preventDefault();
                        const photoElement = e.target.closest('.photo_simple');
                        const image_selec = photoElement.querySelector('img:not(.overlay img)');
@@ -284,45 +301,15 @@ document.addEventListener('DOMContentLoaded', function () {
         showfilter(false, page);   
     }
     
-   
-    //const selects = document.querySelectorAll('.filters select');
-  /*ajpout effet survol filtres*/
-    // // Fonction pour réinitialiser le style des options
-    // function resetOptionsStyle(select) {
-    //     Array.from(select.options).forEach(option => {
-    //         option.style.backgroundColor = '';
-    //         option.style.color = '';
-    //     });
-    // }
-    
-    // // Ajoutez un écouteur d'événements pour chaque select
-    // selects.forEach(select => {
-    //     select.addEventListener('mouseover', (event) => {
-    //         // Réinitialisez le style de toutes les options
-    //         resetOptionsStyle(select); // Passez 'select' au lieu de 'select.options'
-    
-    //         // Appliquez le style uniquement à l'option survolée
-    //         if (event.target.tagName === 'OPTION' && select.selectedIndex !== 0) {
-    //             event.target.style.backgroundColor = '#e00000';
-    //             event.target.style.color = 'white';
-    //         }
-    //     });
-    
-    //     select.addEventListener('mouseout', (event) => {
-    //         // Réinitialisez le style lorsque la souris quitte l'option
-    //         resetOptionsStyle(select); // Passez 'select' au lieu de 'select.options'
-    //     });
-    // });
 
     /*Bouton charger plus*/
     const loadMoreBtn = document.getElementById('load-more-btn');
     loadMoreBtn.addEventListener('click', function () {
         page++;
+        
         showfilter(true, page);
     });
     
-
-
     /*************bouton charger plus et lightbox*****************/
 
     (function($) {
@@ -334,20 +321,22 @@ document.addEventListener('DOMContentLoaded', function () {
             var categorieSelection = valueCat;
             var formatSelection = valueForm;
             var ordre = valueTrier;
-
+          
             $.ajax({
                 type: 'POST',
                 url: 'wp-admin/admin-ajax.php',
                 dataType: 'html',
                 data: {
                     action: 'filter',
+                    nonce:filterAjax,
                     categorieSelection: categorieSelection,
                     formatSelection: formatSelection,
                     orderDirection: ordre,
                     page: page,
                 },
+                
                 success: function(resultat) {
-                    //console.log(resultat);
+                   
                     if (chargerPlus) {
                         $('.photo_flex').append(resultat);
                         images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
@@ -360,8 +349,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     //console.warn(resultat);
                     console.log('Erreur Ajax: ' + textStatus);
                 }
-            });
+            });  
        
     }})(jQuery);
-
 });

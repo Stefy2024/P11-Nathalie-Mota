@@ -17,6 +17,7 @@
 <body>
    
     <div class="nav_bar">
+
         <a href="http://nathaliemota.test/"> <img class="mota_logo" src="<?php echo get_template_directory_uri(); ?>.\assets\images\logo.png" alt="logo Nathalie Mota" /></a>
 
         <nav id="navigation">
@@ -24,7 +25,21 @@
                 array(
                     'theme_location' => 'main')); ?>
         </nav>
+
+        <!-- Bouton du menu burger -->
+        <button class="burger_menu" aria-label="Menu principal">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+         <!-- Icône de la croix pour fermer le menu -->
+        <div class="close_icon" aria-label="Fermer le menu" style="display: none;">
+            &times;
+        </div>
     </div>
+
+
 
 
  

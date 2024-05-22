@@ -1,0 +1,130 @@
+/*3eme section* Vous aimerez aussi*/
+.other-photo{
+    margin-top: 7%;
+    margin-bottom: 7%;
+    p{
+        font-family:'Space Mono';
+        font-size:18px ;
+        text-transform: uppercase;
+        margin-bottom:4% ;
+    }
+   .flex-container{     
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content:space-between;
+        overflow: hidden;
+
+        .photo_simple {
+            width: calc(50% - 10px); /* Moitié de la largeur de la page moins un espace entre les colonnes */
+            margin-bottom: 20px; /* Espacement entre les lignes */
+            overflow: hidden;
+            height: 500px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        
+            &:hover {
+                .overlay {
+                    //display: flex;
+                    opacity: 1;
+                }
+            }
+        
+            .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2;
+                background-color: rgba(0, 0, 0, 0.8);
+                opacity: 0;
+                transition: opacity 0.8s ease-in-out;
+                
+            
+                .photo_reference {
+                    position: absolute;
+                    bottom: 10px;
+                    left: 10px;
+                    color: #fff; 
+                }
+        
+                .photo_category {
+                    position: absolute;
+                    bottom: 10px;
+                    right: 10px;
+                    color: #fff; 
+                }
+                
+                /*liens photos vers lightbox ou photo-publi*/
+                a{
+                    position: relative;
+        
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: contain;
+                        z-index: 1;
+                    }
+                   
+                        &.link_lightbox{
+                            position: absolute;
+                            top:4%;
+                            right: 4%;
+                            z-index: 5;
+                        }
+                        &.link_publi{
+                            position: absolute;
+                            top:50%;
+                            right: 50%;
+                            z-index: 5;
+                            }
+                        
+                        .img_lightbox, .img_publi{
+                            position: absolute;
+                            width: 30px;
+                            height: auto;
+                            
+                        }
+                        .img_publi{
+                            top: 50%;
+                            left: 50%;
+                            transform: translate(-50%, -50%);
+                        }
+                        .img_lightbox{
+                            top: 10%;
+                            left: 90%;
+                            transform: translate(-90%, -10%)
+                        }
+                }
+            }    
+        }
+    
+    }
+}
+
+// *******************Affichage mobile************************//
+@media (max-width: 768px) {
+    .other-photo{
+       .flex-container{     
+            flex-direction: column;
+            align-items: center;
+            justify-content:center;
+    
+            .photo_simple {
+                margin-bottom: 20px; /* Espacement entre les lignes */
+                overflow: hidden;
+                position: relative;
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+       }
+    }
+    
+}

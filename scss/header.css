@@ -4,9 +4,28 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2%;
+  padding-left: 7%;
+  padding-right: 7%;
 }
-.nav_bar #navigation {
-  padding-right: 150px;
+.nav_bar .burger_menu {
+  display: none;
+  cursor: pointer;
+}
+.nav_bar .burger_menu span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: black;
+  margin: 5px 0;
+  transition: 0.3s;
+}
+.nav_bar .close_icon {
+  display: none;
+  cursor: pointer;
+  font-size: 30px;
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 .nav_bar #navigation ul {
   display: flex;
@@ -26,4 +45,50 @@
 .nav_bar .mota_logo {
   width: 240px;
   height: 16px;
+}
+
+/* bouton fermeture */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  padding: 4px;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .nav_bar {
+    padding-right: 2%;
+  }
+  .nav_bar .burger_menu {
+    display: block;
+  }
+  .nav_bar #navigation {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  .nav_bar #navigation ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .nav_bar #navigation li {
+    text-align: center;
+    padding: 0;
+  }
+  .nav_bar #navigation.is-active {
+    display: flex;
+  }
+  .nav_bar #navigation.is-active + .close_icon {
+    display: block;
+  }
 }/*# sourceMappingURL=header.css.map */

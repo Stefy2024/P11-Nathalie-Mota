@@ -3,26 +3,10 @@ get_header();
 
 $photo = get_field('photo_image');
 
-// Modal contact
-get_template_part('template-parts/modal/contact');
 ?>
-<div id="myModal" class="modal">
 
-    <!-- Modal content -->
-    <div class="modal-content">
-        <span class="close">x</span>
-        <div class="mota-form-container">
-                <?php
-                echo do_shortcode('[contact-form-7 id="0e5d643" title="Formulaire de contact modal"]')
-                ?>
-        </div>
-    </div>
-</div>
 
-<!-- <div class="hero_mota">
-    <img class="hero_img" src="<?php echo get_template_directory_uri(); ?>.\assets\images\nathalie-0.jpeg" alt="fête d'un mariage" />
-    <img class="hero_title" src="<?php echo get_template_directory_uri(); ?>.\assets\images\hero_title.png" alt="photographe event" />
-</div> -->
+
 <div class="hero_mota">
     <?php
     // Récupérez tous les posts qui ont une image définie dans le champ 'photo_image'
@@ -69,7 +53,7 @@ get_template_part('template-parts/modal/contact');
 
 <?php get_template_part('filtres'); ?>
 
-<div class="photo_flex photo-lightbox">
+<div class="photo_flex photo-autre-lightbox">
 <?php
 $paramrequette= array(
     'post_type' => 'photo-publi', // type de contenu où sont stockées les photos
@@ -88,7 +72,7 @@ if ($photos->have_posts()) {
             the_post_thumbnail('large');
         }
 //var_dump($paramrequette["post_type"]);
-get_template_part('photo-galerie');
+get_template_part('template-parts/photo-galerie');
 }
 } else {
     // Aucune photo trouvée
@@ -104,7 +88,4 @@ wp_reset_postdata();
 </div>
 
 
-<?php 
-get_template_part('template-parts/lightbox');
-get_footer(); 
-?>
+<?php get_footer(); ?>

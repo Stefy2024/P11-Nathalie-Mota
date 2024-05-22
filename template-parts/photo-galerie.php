@@ -23,7 +23,7 @@
         
             // Affiche l'image avec un lien vers la publication correspondante (photo-publi ou lightbox)
             
-                echo '<div class="photo_simple" data-reference="' . $reference . '" data-category="' . $categorie . '">'; //pour récuperer la référence et la catégorie pour la lightbox
+                echo '<div class="photo_simple " data-reference="' . $reference . '" data-category="' . $categorie . '">'; //pour récuperer la référence et la catégorie pour la lightbox
                     echo wp_get_attachment_image($photo, 'large');
                         echo '<div class="overlay">';
                             echo '<a href="#" class="link_lightbox">';

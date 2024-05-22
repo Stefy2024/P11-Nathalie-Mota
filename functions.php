@@ -1,54 +1,27 @@
 <?php
-add_theme_support( 'post-thumbnails' );
-
 //ajout du fichier js
 add_action('wp_enqueue_scripts', 'enqueue_contact_Mota_scripts');
 function enqueue_contact_Mota_scripts() {
     wp_enqueue_script('jquery'); // Charge jQuery
     wp_enqueue_script('scripts', get_stylesheet_directory_uri() . '/js/scripts.js');
+
+    //création du nonce
+    wp_localize_script('scripts', 'filterAjax', array(
+        'ajaxurl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('nonce_filter')
+    ));
 }
 
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );
 function theme_enqueue_styles() {
     wp_enqueue_style('NathalieMota', get_stylesheet_directory_uri() . '/style.css');
-    
 }
-
-// ajout swiper
-function add_swiper_scripts() {
-    wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css' );
-    wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0.7', true);
-
-       // Ajouter le script JavaScript pour initialiser Swiper en ligne
-       $swiper_script = "
-       jQuery(document).ready(function($) {
-           var swiper = new Swiper('.swiper-container', {
-               autoplay: false,
-               slidesPerView: 1,
-               allowTouchMove: true,
-               navigation: {
-                   nextEl: '.swiper-button-next',
-                   prevEl: '.swiper-button-prev',
-               },
-               pagination: {
-                   el: '.swiper-pagination',
-                   type: 'bullets',
-                   clickable: true,
-               },
-           });
-       });
-   ";
-   wp_add_inline_script('swiper-js', $swiper_script);
-}
-add_action( 'wp_enqueue_scripts', 'add_swiper_scripts' );
-
 
 //défini ajaxurl
 add_action('wp_enqueue_scripts', 'theme_ajaxurl');
 function theme_ajaxurl() {
     echo '<script type="text/javascript">var ajaxurl = "' . admin_url('admin-ajax.php') . '";</script>';
 }
-
 
 //ajout des menus du header (main) et du footer (footer)
 function register_my_menu(){
@@ -57,35 +30,31 @@ function register_my_menu(){
  }
  add_action('after_setup_theme', 'register_my_menu');
 
-//ajout jquery
- function enqueue_custom_scripts() {
-    wp_enqueue_script('jquery');
-}
-add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
+ 
 
 // Fonction pour gérer la requête AJAX et renvoyer les photos filtrées
 add_action('wp_ajax_filter_photos', 'filter_photos');
 add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
 function filter_photos() {
+    // Vérification du nonce
+    check_ajax_referer('nonce_filter', 'nonce');
+    $nonce_valid = check_ajax_referer('nonce_filter', 'nonce', false);
+    if (!$nonce_valid) {
+        wp_send_json_error('Nonce invalide.');
+    }
     $category = $_POST['category'];
-    
-    // Effectuer la même requête WP_Query que dans le code précédent pour récupérer les photos filtrées
     
     // Construction du HTML des photos filtrées
     ob_start();
     if ($photos->have_posts()) {
         while ($photos->have_posts()) {
             $photos->the_post();
-            
-            // Récupére les champs ACF pour chaque photo
-            
             // Construit le HTML pour chaque photo filtrée
         }
     } else {
         // Aucune photo trouvée
     }
     $html = ob_get_clean();
-    
     echo $html;
     wp_die();
 }
@@ -109,32 +78,8 @@ function load_more_photos() {
     wp_die();
 }
 
-// Fonction pour récupérer les 8 photos suivantes à partir d'ACF
-function get_next_eight_photos_from_acf($offset) {
-    $eight_next_photos = array();
 
-    // Récupére les 8 photos suivantes à partir d'ACF en utilisant l'offset
-    $all_photos = get_field('photo_image', 'options');
-    $eight_next_photos = array_slice($all_photos, $offset, 8);
-
-    return $eight_next_photos;
-}
-
-/*test pour filtres*/
-
-
-//function afficherTaxonomies($nomTaxonomie) {
-//     if($terms = get_terms(array(
-//         'taxonomy' => $nomTaxonomie,
-//         'orderby' => 'name'
-//     ))) {
-//         foreach ( $terms as $term ) {
-//             echo '<option class="js-filter-item" value="' . $term->slug . '">' . $term->name . '</option>';
-//         }
-//     }
-// }
 function filter() {
-
    
     if (empty(($_POST['categorieSelection'])) && empty($_POST['formatSelection']))
     {
@@ -170,7 +115,6 @@ function filter() {
                 ),
             );
     }
-    
      $requeteAjax = new WP_Query(array(
         'post_type' => 'photo-publi',
          'orderby' => 'annee',
@@ -184,7 +128,7 @@ function filter() {
    if($requeteAjax->have_posts()) {
         while ($requeteAjax->have_posts()) { 
             $requeteAjax->the_post();
-            get_template_part('photo-galerie');
+            get_template_part('template-parts/photo-galerie');
         }
         }
      else {
@@ -195,17 +139,12 @@ function filter() {
     wp_reset_postdata();
    //afficherImages($requeteAjax, true);
    $html_content = ob_get_clean();
-
-echo ($html_content );
+    echo ($html_content );
 
     // Termine le script
     die();
 }
 add_action('wp_ajax_nopriv_filter', 'filter');
 add_action('wp_ajax_filter', 'filter');
-
-
-
-
 
 ?>
