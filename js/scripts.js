@@ -74,8 +74,6 @@ document.addEventListener('DOMContentLoaded', function () {
     /****************lightbox**********************/
     /*images des liens vers lighbox et photo-publi*/
 
-
-    //const lightboxLinks = document.querySelectorAll('.photo_simple .link_lightbox');
     var menuLinks = document.querySelectorAll('.photo_simple .link_publi');
 
     menuLinks.forEach(function(link) {
@@ -164,7 +162,6 @@ document.addEventListener('DOMContentLoaded', function () {
             lightboxElement.classList.remove('fadeIn');
         }
 
-
         close(e) {
             e.preventDefault();
             this.element.classList.add('fadeIn');
@@ -203,9 +200,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     Lightbox.init = function() {
         //photo principale single-photo-publi.php
-            console.log('truc machin chose');
+           
             if (document.querySelector('.photo-lightbox')) {
-                console.log('LAPIN');
                 const container = document.querySelector('.photo-lightbox');
                 container.addEventListener('click', (e) => {
                     const link = e.target.closest('.photo_alone .link_lightbox');
@@ -235,9 +231,7 @@ document.addEventListener('DOMContentLoaded', function () {
                });    
             } 
         //photo-galerie:photo "vous aimerez aussi" single-photo-publi.php et photo front-page.php
-            console.log('photo-autre-lightbox');
             if (document.querySelector('.photo-autre-lightbox')){
-                console.log('TORTUE');
                 const container = document.querySelector('.photo-autre-lightbox');
                 container.addEventListener('click', (e) => {
                     const link = e.target.closest('.photo_simple .link_lightbox');
@@ -301,8 +295,8 @@ document.addEventListener('DOMContentLoaded', function () {
         showfilter(false, page);   
     }
     
+/*************bouton charger plus*****************/
 
-    /*Bouton charger plus*/
     const loadMoreBtn = document.getElementById('load-more-btn');
     loadMoreBtn.addEventListener('click', function () {
         page++;
@@ -310,11 +304,8 @@ document.addEventListener('DOMContentLoaded', function () {
         showfilter(true, page);
     });
     
-    /*************bouton charger plus et lightbox*****************/
-
     (function($) {
         'use strict';
-
 
         window.showfilter = function showfilter(chargerPlus, page) {
           
@@ -328,7 +319,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 dataType: 'html',
                 data: {
                     action: 'filter',
-                    nonce:filterAjax,
+                    nonce:filterAjax.nonce,
                     categorieSelection: categorieSelection,
                     formatSelection: formatSelection,
                     orderDirection: ordre,
@@ -346,7 +337,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 },
                 error: function(xhr, textStatus, errorThrown) {
-                    //console.warn(resultat);
+                
                     console.log('Erreur Ajax: ' + textStatus);
                 }
             });  

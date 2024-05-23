@@ -30,35 +30,6 @@ function register_my_menu(){
  }
  add_action('after_setup_theme', 'register_my_menu');
 
- 
-
-// Fonction pour gérer la requête AJAX et renvoyer les photos filtrées
-add_action('wp_ajax_filter_photos', 'filter_photos');
-add_action('wp_ajax_nopriv_filter_photos', 'filter_photos');
-function filter_photos() {
-    // Vérification du nonce
-    check_ajax_referer('nonce_filter', 'nonce');
-    $nonce_valid = check_ajax_referer('nonce_filter', 'nonce', false);
-    if (!$nonce_valid) {
-        wp_send_json_error('Nonce invalide.');
-    }
-    $category = $_POST['category'];
-    
-    // Construction du HTML des photos filtrées
-    ob_start();
-    if ($photos->have_posts()) {
-        while ($photos->have_posts()) {
-            $photos->the_post();
-            // Construit le HTML pour chaque photo filtrée
-        }
-    } else {
-        // Aucune photo trouvée
-    }
-    $html = ob_get_clean();
-    echo $html;
-    wp_die();
-}
-
 // Ajoute la fonction pour gérer la requête AJAX "charger plus"
 add_action('wp_ajax_load_more_photos', 'load_more_photos');
 add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
@@ -78,9 +49,14 @@ function load_more_photos() {
     wp_die();
 }
 
-
 function filter() {
-   
+     // Vérifiez le nonce.
+     check_ajax_referer('nonce_filter', 'nonce');
+     $nonce_valid = check_ajax_referer('nonce_filter', 'nonce', false);
+     if (!$nonce_valid) {
+         wp_send_json_error('Nonce invalide.');
+     }
+
     if (empty(($_POST['categorieSelection'])) && empty($_POST['formatSelection']))
     {
         $taxonomie='';
@@ -134,7 +110,6 @@ function filter() {
      else {
             // Aucune photo trouvée
     }
-    
     // Réinitialise la requête WordPress
     wp_reset_postdata();
    //afficherImages($requeteAjax, true);

@@ -5,11 +5,9 @@ $photo = get_field('photo_image');
 
 ?>
 
-
-
 <div class="hero_mota">
     <?php
-    // Récupérez tous les posts qui ont une image définie dans le champ 'photo_image'
+    // Récupére tous les posts qui ont une image définie dans le champ 'photo_image'
     $args = array(
         'post_type' => 'photo-publi', // Remplacez par le type de post approprié
         'posts_per_page' => -1, // Récupère tous les posts
@@ -22,10 +20,10 @@ $photo = get_field('photo_image');
     );
     $photos_query = new WP_Query($args);
 
-    // Créez un tableau pour stocker les URLs des images
+    // Crée un tableau pour stocker les URLs des images
     $photos_urls = array();
 
-    // Remplissez le tableau avec les URLs des images
+    // Rempli le tableau avec les URLs des images
     if ($photos_query->have_posts()) {
         while ($photos_query->have_posts()) {
             $photos_query->the_post();
@@ -38,10 +36,10 @@ $photo = get_field('photo_image');
         }
     }
 
-    // Réinitialisez la requête WordPress
+    // Réinitialise la requête WordPress
     wp_reset_postdata();
 
-    // Sélectionnez une URL d'image aléatoire
+    // Sélectionne une URL d'image aléatoire
     if (!empty($photos_urls)) {
         $random_photo_url = $photos_urls[array_rand($photos_urls)];
         echo '<img class="hero_img" src="' . esc_url($random_photo_url) . '" alt="Image aléatoire" />';
@@ -62,7 +60,7 @@ $paramrequette= array(
 
 $photos = new WP_Query($paramrequette);
 
-// Affichez les photos récupérées
+// Affiche les photos récupérées
 if ($photos->have_posts()) {
     
     while ($photos->have_posts()) {
@@ -71,14 +69,14 @@ if ($photos->have_posts()) {
         if ( has_post_thumbnail() ) {
             the_post_thumbnail('large');
         }
-//var_dump($paramrequette["post_type"]);
+
 get_template_part('template-parts/photo-galerie');
 }
 } else {
     // Aucune photo trouvée
 }
 
-// Réinitialisez la requête WordPress
+// Réinitialise la requête WordPress
 wp_reset_postdata();
 ?>
 </div>

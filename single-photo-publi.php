@@ -18,8 +18,6 @@ $type = get_field('photo_type');
 $annee = get_field('photo_annee');
 $photo = get_field('photo_image');
 
-
-
 ?>
 	<article class="photo__container">
 		<div class="container__info flex-item">
@@ -146,7 +144,4 @@ $photo = get_field('photo_image');
 			
 </div>
 
-<?php
-
-get_footer();
-?>
+<?php get_footer(); ?>

@@ -96,11 +96,4 @@
  
 	 </div>
  
- <?php
- 
- /* }
- else {
-	 
- } */
- 
- get_footer(); ?>
+ <?php get_footer(); ?>
