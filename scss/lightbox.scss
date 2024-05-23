@@ -96,3 +96,67 @@
             }
         }
 }
+
+
+ // *******************Affichage mobile************************//
+ @media (max-width: 1240px) {
+
+    .lightbox{
+        
+            .lightbox__prev{
+                background: url(assets/images/lineprev.png) no-repeat;
+                width:100px;
+                height: 20px;
+                top: 50%;
+                left: 2%;
+                margin-top: 14px;
+               
+            }
+
+            .lightbox__next{
+                background: url(assets/images/linenext.png) no-repeat right center;
+                width:100px;
+                height: 20px;
+                top: 50%;
+                right: 2%;
+                margin-top: 14px;
+               
+               
+           
+            }
+    
+     } 
+
+
+ }
+
+ @media (max-width: 768px) {
+
+    .lightbox{
+        
+            .lightbox__prev{
+                background: url(assets/images/lineprev.png) no-repeat;
+                width:100px;
+                height: 20px;
+                top: 50%;
+                left: 2%;
+                margin-top: 14px;
+               
+            }
+
+            .lightbox__next{
+                background: url(assets/images/linenext.png) no-repeat right center;
+                width:100px;
+                height: 20px;
+                top: 50%;
+                right: 2%;
+                margin-top: 14px;
+               
+               
+           
+            }
+    
+     } 
+
+
+ }

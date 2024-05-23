@@ -1,3 +1,14 @@
+@keyframes title-up {
+	0% {
+	  opacity: 0;
+	  transform: translateY(-70px);
+	}
+	100% {
+	  opacity: 1;
+	  transform: translateY(0);
+	}
+  }
+
 .nav_bar{
     display: flex;
     flex-direction: row;
@@ -30,24 +41,23 @@
     }
 
     #navigation{
-        
-             
             ul{
-            display: flex;
-            flex-direction: row;
-            list-style-type: none;
-            text-transform: uppercase;
-            
-                li{
-                font-size: 16px;
-                padding-right: 40px;
-                    a{
-                    color: black;
-                    text-decoration: none;
-                    cursor: pointer;
+                display: flex;
+                flex-direction: row;
+                list-style-type: none;
+                text-transform: uppercase;
+                
+                    li{
+                        font-size: 16px;
+                        padding-right: 40px;
+                        text-align: center;
+                            a{
+                            color: black;
+                            text-decoration: none;
+                            cursor: pointer;
+                            }
                     }
-                }
-        }
+            }
     }
     .mota_logo{
         width:240px;
@@ -83,21 +93,40 @@
 
             #navigation {
                 display: none; // Cache le menu de navigation
+                position: absolute;
                 flex-direction: column; // Pour afficher les éléments en colonne
                 align-items: center; // Pour centrer les éléments
+                justify-content: center;
                 width: 100%; // Pour occuper toute la largeur
-
-                    ul {
+                background-color:#e00000 ;
+                z-index: 100;
+                top: 9%;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                overflow-y: auto;
+               
+                animation: title-up 1.5s ease-in-out forwards;
+				
+                
+                ul {
                         display: flex;
                         flex-direction: column;
                         width: 100%; // Pour occuper toute la largeur
-                    }
+                    
 
-                    li {
-                        text-align: center; // Pour centrer le texte
-                        padding:  0; // Pour ajouter de l'espace autour des liens
+                        li{
+                            font-size: 44px;
+                            text-align: center;
+                            padding-bottom: 10%;
+                                a{
+                                color:#ffffff;
+                                padding-bottom: 10%;
+                                }
+                            }
                     }
             }
+            
 
             // Lorsque .is-active est ajouté à #navigation, le menu s'affiche
             #navigation.is-active {
