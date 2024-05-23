@@ -29,4 +29,39 @@
   font-style: normal;
   font-weight: 500;
   font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  #navigation {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #navigation .menu-footer-container {
+    justify-content: center;
+    align-items: center;
+  }
+  #navigation .menu-footer-container ul {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  #navigation .menu-footer-container ul li {
+    text-align: center;
+    padding-right: 0;
+    padding-top: 15%;
+  }
+  #navigation .menu-footer-container ul li a {
+    color: black;
+  }
+  #navigation p {
+    text-align: center;
+  }
+  #navigation .footer_text {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    text-align: center;
+  }
 }/*# sourceMappingURL=footer.css.map */

@@ -1,7 +1,6 @@
 .menu-divider {
     border: none;
     border-top: 1px solid #000;
-    //margin: 20px 0;
 }
 #navigation{
     display: flex;
@@ -32,3 +31,53 @@
         font-size: 15px;
     }
 }
+
+ // *******************Affichage mobile************************//
+ @media (max-width: 768px) {
+
+    #navigation{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+       .menu-footer-container{
+      justify-content: center;
+      align-items: center;
+            ul{
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+               
+                li{
+                    text-align: center;
+                    padding-right: 0;
+                    padding-top:15%;
+                    
+    
+                    a{
+                        color: black;
+                       
+                    
+                        }
+                }
+                
+
+            }
+        }
+        p{
+            text-align: center;
+    
+        }
+        .footer_text{
+
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            text-align: center;
+        }
+    }
+
+
+ }
+
