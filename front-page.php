@@ -4,7 +4,7 @@ get_header();
 $photo = get_field('photo_image');
 
 ?>
-
+    <!-- partie 1: le hero -->
 <div class="hero_mota">
     <?php
     // Récupére tous les posts qui ont une image définie dans le champ 'photo_image'
@@ -29,13 +29,12 @@ $photo = get_field('photo_image');
             $photos_query->the_post();
             $photo_id = get_field('photo_image');
             if ($photo_id) {
-                // Utilisez l'ID pour obtenir l'URL de l'image
+                // Utilisation de l'ID pour obtenir l'URL de l'image
                 $photo_url = wp_get_attachment_url($photo_id);
                 $photos_urls[] = $photo_url;
             }
         }
     }
-
     // Réinitialise la requête WordPress
     wp_reset_postdata();
 
@@ -45,14 +44,17 @@ $photo = get_field('photo_image');
         echo '<img class="hero_img" src="' . esc_url($random_photo_url) . '" alt="Image aléatoire" />';
     }
     ?>
+            <!-- insertion du titre avec le hero-->
     <img class="hero_title" src="<?php echo get_template_directory_uri(); ?>.\assets\images\hero_title.png" alt="photographe event" />
 </div>
 
-
+<!-- partie 2: mise en place des filtres grâce au template part filtres.php-->
 <?php get_template_part('filtres'); ?>
 
 <div class="photo_flex photo-autre-lightbox">
+    <!--affichage des photos -->
 <?php
+    //paramètres pour l'affichage des photos pour le template part photo-galerie
 $paramrequette= array(
     'post_type' => 'photo-publi', // type de contenu où sont stockées les photos
     'posts_per_page' => 8, // Récupère tous les articles  de ce type et en affiche 8
@@ -60,7 +62,7 @@ $paramrequette= array(
 
 $photos = new WP_Query($paramrequette);
 
-// Affiche les photos récupérées
+// Affiche les photos récupérées, avec le template part photo-galerie
 if ($photos->have_posts()) {
     
     while ($photos->have_posts()) {
@@ -80,7 +82,7 @@ get_template_part('template-parts/photo-galerie');
 wp_reset_postdata();
 ?>
 </div>
-
+    <!--bouton Charger plus -->
 <div class="load-more">
     <button id="load-more-btn">Charger plus</button>
 </div>

@@ -1,7 +1,7 @@
-
+// le code est ajouté une fois tout le DOM chargé
 document.addEventListener('DOMContentLoaded', function () {
     //variables lightbox
-        //on selectionne toutes les images converties ensuite en tableau, en excluant les images de lien lightbox et des publications
+        //selecton de toutes les images (converties en tableau), en excluant les images de lien lightbox et des publications
         let images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
         let currentImageIndex = 0;
         let page=1;
@@ -9,15 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
         /*********************MODAL*******************/
     // recupere la modal
     var modal = document.getElementById('myModal');
-
-    // recupere l'id de "contact"
+    // recupere l'élément "contact"
     var contact = document.getElementById("menu-item-46");
-
     // recupere l'élément span pour fermer (la croix)
     var span = document.getElementsByClassName("close")[0];
 
-
-    // au click, on remplace display none par display block (ouvre le formulaire)
+    // au click sur contact, on remplace display none par display block (ouvre le formulaire)
     contact.onclick = function() {
         modal.style.display = "block";
     }
@@ -31,21 +28,19 @@ document.addEventListener('DOMContentLoaded', function () {
     jQuery(document).ready(function($) {
         // Lorsqu'on ouvre la modal, définit la valeur du champ 'Ref. photo'
         $('.open-modal').on('click', function() {
-            var photoReference = $(this).data('reference'); // Récupère la référence stockée dans l'attribut data-reference
+            // Récupère la référence stockée dans data-reference
+            var photoReference = $(this).data('reference'); 
             $('#myModal').find('input[name="your-subject"]').val(photoReference);
         });
-    
         // Ferme la modal et réinitialise le champ lorsque l'utilisateur clique sur 'x'
         $('.close').on('click', function() {
             $('#myModal').find('input[name="your-subject"]').val('');
         });
     });
-
     // au click sur la croix, on ferme (display=none)
     span.onclick = function() {
         modal.style.display = "none";
     }
-
     // au click hors du cadre du formulaire, on ferme (display=none)
     window.onclick = function(event) {
         if (event.target == modal) {
@@ -58,13 +53,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const burger = document.querySelector('.burger_menu');
     const nav = document.querySelector('#navigation');
     const closeIcon = document.querySelector('.close_icon');
-
+    // Lors du clic sur le menu burger, on affiche le menu et on cache le menu burger
     burger.addEventListener('click', function() {
         nav.classList.toggle('is-active');
         closeIcon.style.display = 'block'; // Affiche la croix
         burger.style.display = 'none'; // Cache le menu burger
     });
-
+    // Lors du clic sur la croix, on cache le menu et on affiche le menu burger
     closeIcon.addEventListener('click', function() {
         nav.classList.remove('is-active');
         closeIcon.style.display = 'none'; // Cache la croix
@@ -75,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /*images des liens vers lighbox et photo-publi*/
 
     var menuLinks = document.querySelectorAll('.photo_simple .link_publi');
-
+    // Pour chaque lien, on ajoute un écouteur d'événements de clic
     menuLinks.forEach(function(link) {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -93,9 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const links = document.querySelectorAll('.link_lightbox')
             //on ajoute un écouteur d'évènements de click à chaque élément
             links.forEach((link, i)=> link.addEventListener('click', (e)=> {
-                //e.preventDefault()
                // console.log(i);
-               console.log('tititi');
                 const imageSrc = images[i].getAttribute('src');
                 new Lightbox(src_image, images, index, reference, category);
             }))
@@ -130,23 +123,24 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         //pour naviguer entre les images
+                //image suivante
         nextImage() {console.log(this.index);
             this.index = (this.index + 1) % this.images.length; // % pour ne pas dépasser le nombre existant dans l'index, pour faire une boucle
             this.updateImage(); //mettre à jour image
             this.updateInfo(); //mettre à jour réf et catégorie
         }
-    
+                //image précédente
         prevImage() {
             this.index = (this.index - 1 + this.images.length) % this.images.length;
             this.updateImage();
             this.updateInfo();
         }
-    
+                //chargement photo avec ajout de src    
         updateImage() {
             const imageElement = document.querySelector('.lightbox__container img');
             imageElement.src = this.images[this.index].getAttribute('src');
         }
-
+                //chargement des info de la photo
         updateInfo() {
             const photoElement = this.images[this.index].closest('.photo_simple');
             const reference = photoElement.getAttribute('data-reference');
@@ -156,12 +150,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const categoryElement = document.querySelector('#lightbox_category');
             categoryElement.textContent = category;
         }
-        //pour supprimer la classe fadeIn
+        //pour supprimer la classe fadeIn- rendre la lightbox visible
         removeFadeIn() {
             const lightboxElement = document.querySelector('.lightbox');
             lightboxElement.classList.remove('fadeIn');
         }
-
+        //pour ajouter la classe fade-in- faire disparaitre la lightbox
         close(e) {
             e.preventDefault();
             this.element.classList.add('fadeIn');
@@ -169,13 +163,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 this.element.remove();
             }, 500);
         }
-        
+        //pour construire la partie du DOM correspondante
         buildDOM(url, reference, category) {
-            
+            //cration d'un nouvel élément image
             const img = document.createElement('img');
             img.src= url;
             let lb =document.querySelector('.lightbox__container img');
             lb.src=url;
+            //ajout de la classe fade-in à lightbox (je la fais disparaitre)
             document.querySelector('.lightbox').classList.add('fadeIn');
             //construction de la partie réf et catégorie de la photo sur lightbox
             const referenceElement = document.createElement('p');
@@ -188,7 +183,7 @@ document.addEventListener('DOMContentLoaded', function () {
             categoryElement.className = 'lightbox_cat';
 
             const infoContainer = document.querySelector('.lightbox__container .lightbox_info');
-            //pour supprimer les éléments précédents (éviter de reprendre les info de la photo précédente visionnée)
+            //pour supprimer les éléments précédents (pour éviter de reprendre les info de la photo précédente visionnée)
             while (infoContainer.firstChild) {
                 infoContainer.removeChild(infoContainer.firstChild);
             }
@@ -197,17 +192,17 @@ document.addEventListener('DOMContentLoaded', function () {
             infoContainer.appendChild(categoryElement);
         }
     }
-
+    //conditions pour initialiser la lightbox
     Lightbox.init = function() {
-        //photo principale single-photo-publi.php
-           
+
+        // au niveau de la photo principale dans single-photo-publi.php
             if (document.querySelector('.photo-lightbox')) {
+                //ajout de l'évènement au click
                 const container = document.querySelector('.photo-lightbox');
                 container.addEventListener('click', (e) => {
                     const link = e.target.closest('.photo_alone .link_lightbox');
                    const image_selec = e.target.closest('.photo_alone').querySelector('img:not(.overlay img)');
                    const src_image= image_selec.getAttribute('src');
-                   console.log('Sapin de noel');
                    console.log(src_image);
                    let index='';
                    images.forEach((image, i) => {
@@ -225,12 +220,11 @@ document.addEventListener('DOMContentLoaded', function () {
                        const src_image = image_selec.getAttribute('src');
                        const reference = photoElement.getAttribute('data-reference');
                        const category = photoElement.getAttribute('data-category');
-                       //const image = link.parentElement.previousElementSibling;
                        new Lightbox(src_image, images, index, reference, category);
                    }
                });    
             } 
-        //photo-galerie:photo "vous aimerez aussi" single-photo-publi.php et photo front-page.php
+        //au niveau de photo-galerie:photo "vous aimerez aussi" dans single-photo-publi.php et photo front-page.php
             if (document.querySelector('.photo-autre-lightbox')){
                 const container = document.querySelector('.photo-autre-lightbox');
                 container.addEventListener('click', (e) => {
@@ -254,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function () {
                        const src_image = image_selec.getAttribute('src');
                        const reference = photoElement.getAttribute('data-reference');
                        const category = photoElement.getAttribute('data-category');
-                       //const image = link.parentElement.previousElementSibling;
                        new Lightbox(src_image, images, index, reference, category);
                    }
                });    
@@ -296,14 +289,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
 /*************bouton charger plus*****************/
-
+    //récupère le bouton "load more"
     const loadMoreBtn = document.getElementById('load-more-btn');
+    //ajout d'un écouteur d'évènement sur le bouton
     loadMoreBtn.addEventListener('click', function () {
+        // Incrémentation de la page
         page++;
-        
+        // Appel de la fonction showfilter avec chargerPlus à true
         showfilter(true, page);
     });
-    
+    //définition de la fonction showfilter
     (function($) {
         'use strict';
 
@@ -312,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
             var categorieSelection = valueCat;
             var formatSelection = valueForm;
             var ordre = valueTrier;
-          
+          // Appel Ajax pour récupérer les données filtrées
             $.ajax({
                 type: 'POST',
                 url: 'wp-admin/admin-ajax.php',
@@ -325,17 +320,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     orderDirection: ordre,
                     page: page,
                 },
-                
+                // Si chargerPlus est vrai, on ajoute le résultat à la fin de .photo_flex
                 success: function(resultat) {
                    
                     if (chargerPlus) {
                         $('.photo_flex').append(resultat);
                         images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
+                    // Sinon, on remplace le contenu de .photo_flex par le résultat
                     } else {
                         $('.photo_flex').html(resultat);
                         images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
                     }
                 },
+                // En cas d'erreur, on affiche un message dans la console
                 error: function(xhr, textStatus, errorThrown) {
                 
                     console.log('Erreur Ajax: ' + textStatus);
