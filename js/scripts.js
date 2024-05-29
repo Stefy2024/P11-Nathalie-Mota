@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     //variables lightbox
         //selecton de toutes les images (converties en tableau), en excluant les images de lien lightbox et des publications
-        let images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
+        let imagesAll = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
         let currentImageIndex = 0;
         let page=1;
 
@@ -82,21 +82,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /*ouverture et fermeture de la lightbox*/
     class Lightbox {
-        //pour initialiser la fonctionnalité de la lightbox
-        static init() {
-        //on sélectionne les liens lightbox
-            const links = document.querySelectorAll('.link_lightbox')
-            //on ajoute un écouteur d'évènements de click à chaque élément
-            links.forEach((link, i)=> link.addEventListener('click', (e)=> {
-               // console.log(i);
-                const imageSrc = images[i].getAttribute('src');
-                new Lightbox(src_image, images, index, reference, category);
-            }))
-        }
+        
+        
 
         //constructeur de la classe qui prend 'url de l'image à afficher en paramètre
         constructor(url, images, index, reference, category) {
-            console.log('constructor');
+            //console.log('constructor');
             this.url = url;
             this.images = images;
             this.index = index;
@@ -124,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         //pour naviguer entre les images
                 //image suivante
-        nextImage() {console.log(this.index);
+        nextImage() {//console.log(this.index);
             this.index = (this.index + 1) % this.images.length; // % pour ne pas dépasser le nombre existant dans l'index, pour faire une boucle
             this.updateImage(); //mettre à jour image
             this.updateInfo(); //mettre à jour réf et catégorie
@@ -196,16 +187,20 @@ document.addEventListener('DOMContentLoaded', function () {
     Lightbox.init = function() {
 
         // au niveau de la photo principale dans single-photo-publi.php
+            //si la classe photo-lightbox est présente sur la page
             if (document.querySelector('.photo-lightbox')) {
                 //ajout de l'évènement au click
-                const container = document.querySelector('.photo-lightbox');
-                container.addEventListener('click', (e) => {
+                    const container = document.querySelector('.photo-lightbox');
+                    //ajout d'un évènement au click sur link_lightbox
+                    container.addEventListener('click', (e) => {
                     const link = e.target.closest('.photo_alone .link_lightbox');
-                   const image_selec = e.target.closest('.photo_alone').querySelector('img:not(.overlay img)');
-                   const src_image= image_selec.getAttribute('src');
-                   console.log(src_image);
-                   let index='';
-                   images.forEach((image, i) => {
+                    //on récupère l'information sur l'image selectionnée
+                    const image_selec = e.target.closest('.photo_alone').querySelector('img:not(.overlay img)');
+                    //on récupère la source (l'emplacement) de l'image
+                    const src_image= image_selec.getAttribute('src');
+                    //console.log(src_image);
+                    let index='';
+                    imagesAll.forEach((image, i) => {
                        //console.log(`URL of image ${i}:`, image.getAttribute('src'));
                        if (image.getAttribute('src')==src_image){
                            index=i;
@@ -220,7 +215,7 @@ document.addEventListener('DOMContentLoaded', function () {
                        const src_image = image_selec.getAttribute('src');
                        const reference = photoElement.getAttribute('data-reference');
                        const category = photoElement.getAttribute('data-category');
-                       new Lightbox(src_image, images, index, reference, category);
+                       new Lightbox(src_image, imagesAll, index, reference, category);
                    }
                });    
             } 
@@ -231,10 +226,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     const link = e.target.closest('.photo_simple .link_lightbox');
                    const image_selec = e.target.closest('.photo_simple').querySelector('img:not(.overlay img)');
                    const src_image= image_selec.getAttribute('src');
-                   console.log('Sapin de noel');
-                   console.log(src_image);
+                   //console.log(src_image);
                    let index='';
-                   images.forEach((image, i) => {
+                   imagesAll.forEach((image, i) => {
                        //console.log(`URL of image ${i}:`, image.getAttribute('src'));
                        if (image.getAttribute('src')==src_image){
                            index=i;
@@ -248,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
                        const src_image = image_selec.getAttribute('src');
                        const reference = photoElement.getAttribute('data-reference');
                        const category = photoElement.getAttribute('data-category');
-                       new Lightbox(src_image, images, index, reference, category);
+                       new Lightbox(src_image, imagesAll, index, reference, category);
                    }
                });    
             }
@@ -263,7 +257,7 @@ document.addEventListener('DOMContentLoaded', function () {
      let valueCat = '';
      selectCat.onchange = function () {
        valueCat = selectCat.value;
-        console.log(valueCat); // Affichage de la valeur catégorie dans la console
+        //console.log(valueCat); // Affichage de la valeur catégorie dans la console
         page=1;
         showfilter(false, page);
     }
@@ -273,7 +267,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let valueForm = '';
     selectForm.onchange = function () {
         valueForm = selectForm.value;
-        console.log(valueForm); // Affichage de la valeur fomrat dans la console
+        //console.log(valueForm); // Affichage de la valeur fomrat dans la console
         page=1;
         showfilter(false, page); 
     }
@@ -283,7 +277,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let valueTrier = '';
     selectTrier.onchange = function () {
         valueTrier = selectTrier.value;
-        console.log(valueTrier); // Affichage de la valeur trier dans la console
+        //console.log(valueTrier); // Affichage de la valeur trier dans la console
         page=1;
         showfilter(false, page);   
     }
@@ -325,11 +319,11 @@ document.addEventListener('DOMContentLoaded', function () {
                    
                     if (chargerPlus) {
                         $('.photo_flex').append(resultat);
-                        images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
-                    // Sinon, on remplace le contenu de .photo_flex par le résultat
+                        imagesAll = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
+                        // Sinon, on remplace le contenu de .photo_flex par le résultat
                     } else {
                         $('.photo_flex').html(resultat);
-                        images = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
+                        imagesAll = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
                     }
                 },
                 // En cas d'erreur, on affiche un message dans la console

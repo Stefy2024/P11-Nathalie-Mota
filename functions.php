@@ -30,24 +30,7 @@ function register_my_menu(){
  }
  add_action('after_setup_theme', 'register_my_menu');
 
-// Ajout de la fonction pour gérer la requête AJAX "charger plus"
-add_action('wp_ajax_load_more_photos', 'load_more_photos');
-add_action('wp_ajax_nopriv_load_more_photos', 'load_more_photos');
 
-function load_more_photos() {
-    $offset = $_POST['offset'];
-
-    // Récupére les 8 photos suivantes à partir d'ACF
-    $eight_next_photos = get_next_eight_photos_from_acf($offset);
-
-    // Affiche les nouvelles photos
-    foreach ($eight_next_photos as $photo) {
-        echo '<img src="' . esc_url($photo['url']) . '" alt="' . esc_attr($photo['alt']) . '">';
-    }
-
-    // arrête l'exécution après avoir renvoyé la réponse
-    wp_die();
-}
 
 //définition de la fonction filter
 function filter() {
