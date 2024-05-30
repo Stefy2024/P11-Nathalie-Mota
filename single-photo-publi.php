@@ -118,6 +118,13 @@ $photo = get_field('photo_image');
 						}
 						echo '<span>←</span>';
 						echo '</a>';
+					}else{
+						echo '<a class="nav-thumbnail" href="" title="">';
+						
+							echo '<img src="" alt="" />';
+						
+						//echo '<span>←</span>';
+						echo '</a>';
 					}
 						//pour post suivant
 					if ($next_post) {
@@ -131,6 +138,13 @@ $photo = get_field('photo_image');
 							echo '<img src="' . $next_thumbnail_url . '" alt="' . $next_title . '" />';
 						}
 						echo '<span>→</span>';
+						echo '</a>';
+					}else{
+						echo '<a class="nav-thumbnail" href="" title="">';
+					
+							echo '<img src="" alt="" />';
+						
+						//echo '<span>→</span>';
 						echo '</a>';
 					}
 				?>
