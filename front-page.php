@@ -72,12 +72,9 @@ if ($photos->have_posts()) {
             the_post_thumbnail('large');
         }
 
-get_template_part('template-parts/photo-galerie');
+        get_template_part('template-parts/photo-galerie');
+    }
 }
-} else {
-    // Aucune photo trouvée
-}
-
 // Réinitialise la requête WordPress
 wp_reset_postdata();
 ?>

@@ -120,10 +120,7 @@ $photo = get_field('photo_image');
 						echo '</a>';
 					}else{
 						echo '<a class="nav-thumbnail" href="" title="">';
-						
 							echo '<img src="" alt="" />';
-						
-						//echo '<span>←</span>';
 						echo '</a>';
 					}
 						//pour post suivant
@@ -141,10 +138,7 @@ $photo = get_field('photo_image');
 						echo '</a>';
 					}else{
 						echo '<a class="nav-thumbnail" href="" title="">';
-					
 							echo '<img src="" alt="" />';
-						
-						//echo '<span>→</span>';
 						echo '</a>';
 					}
 				?>
@@ -179,7 +173,6 @@ $photo = get_field('photo_image');
         );
         $query = new WP_Query($args);
 ?>
-   
         <div class="flex-container photo-autre-lightbox">
             <?php
                 // Boucle pour afficher les deux photos

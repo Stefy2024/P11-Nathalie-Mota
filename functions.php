@@ -81,11 +81,11 @@ else{
     //création d'une nouvelle requête WP_QUERY, avec les paramètres spécifiés
      $requeteAjax = new WP_Query(array(
         'post_type' => 'photo-publi',
-         'orderby' => 'annee',
-         'order' => $_POST['orderDirection'],
+        'orderby' => 'annee',
+        'order' => $_POST['orderDirection'],  //recupere la valeur du menu déroulant de droite -trier par
         'posts_per_page' => 8,
-         'paged' => $_POST['page'],
-         'tax_query' =>  $taxonomie
+        'paged' => $_POST['page'],
+        'tax_query' =>  $taxonomie
          )
      );
      //mise en mémoire tampon de sortie
@@ -98,12 +98,10 @@ else{
             //appel du template part photo-galerie
             get_template_part('template-parts/photo-galerie');
         }
-        }
-     else {
-            // Aucune photo trouvée
     }
+    
     // Réinitialise la requête WordPress
-    wp_reset_postdata();
+    wp_reset_postdata();  //pour libérer les données de wp_query au niveau de la mémoire pour éviter de surcharger le serveur
 
    //on récupère le contenu de la mise en mémoire tampon
    $html_content = ob_get_clean();

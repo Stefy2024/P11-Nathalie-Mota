@@ -38,10 +38,16 @@
   position: relative;
   display: flex;
   align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 .photo__container .container__photo .photo_alone img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
 }
 .photo__container .container__photo .photo_alone:hover .overlay {
   opacity: 1;

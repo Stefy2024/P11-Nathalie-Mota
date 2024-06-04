@@ -82,9 +82,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /*ouverture et fermeture de la lightbox*/
     class Lightbox {
-        
-        
-
         //constructeur de la classe qui prend 'url de l'image à afficher en paramètre
         constructor(url, images, index, reference, category) {
             //console.log('constructor');
@@ -295,9 +292,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //définition de la fonction showfilter
     (function($) {
         'use strict';
-
-        window.showfilter = function showfilter(chargerPlus, page) {
-          
+        window.showfilter = function showfilter(chargerPlus, page) {          
             var categorieSelection = valueCat;
             var formatSelection = valueForm;
             var ordre = valueTrier;
@@ -315,20 +310,18 @@ document.addEventListener('DOMContentLoaded', function () {
                     page: page,
                 },
                 // Si chargerPlus est vrai, on ajoute le résultat à la fin de .photo_flex
-                success: function(resultat) {
-                   
+                success: function(resultat) {                   
                     if (chargerPlus) {
-                        $('.photo_flex').append(resultat);
+                        $('.photo_flex').append(resultat); // append pour ajouter des photos
                         imagesAll = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
                         // Sinon, on remplace le contenu de .photo_flex par le résultat
                     } else {
-                        $('.photo_flex').html(resultat);
+                        $('.photo_flex').html(resultat); // html pour afficher les photos à la place des autres
                         imagesAll = document.querySelectorAll('.photo_simple img:not(.img_lightbox):not(.img_publi)');
                     }
                 },
                 // En cas d'erreur, on affiche un message dans la console
-                error: function(xhr, textStatus, errorThrown) {
-                
+                error: function(xhr, textStatus, errorThrown) {                
                     console.log('Erreur Ajax: ' + textStatus);
                 }
             });  
