@@ -45,7 +45,7 @@ $photo = get_field('photo_image');
     }
     ?>
             <!-- insertion du titre avec le hero-->
-    <img class="hero_title" src="<?php echo get_template_directory_uri(); ?>.\assets\images\hero_title.png" alt="photographe event" />
+    <img class="hero_title" src="<?php echo get_template_directory_uri(); ?>\assets\images\hero_title.png" alt="photographe event" />
 </div>
 
 <!-- partie 2: mise en place des filtres grâce au template part filtres.php-->
